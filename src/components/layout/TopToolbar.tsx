@@ -33,7 +33,7 @@ export function TopToolbar({
           <img 
             src={player.avatarUrl || ASSETS.defaultAvatar} 
             alt="Avatar" 
-            className="w-full h-full object-cover mix-blend-multiply" 
+            className="w-full h-full object-cover" 
           />
         </button>
 

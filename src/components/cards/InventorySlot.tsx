@@ -90,8 +90,8 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick, is
           </svg>
         </div>
       ) : item.senderAvatar ? (
-        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full overflow-hidden border-2 border-white shadow-md bg-blue-100 z-30">
-          <img src={item.senderAvatar} alt="Sender" className="w-full h-full object-cover mix-blend-multiply" />
+        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full overflow-hidden border-2 border-white shadow-md bg-white z-30">
+          <img src={item.senderAvatar} alt="Sender" className="w-full h-full object-cover" />
         </div>
       ) : item.senderType === 'system' ? (
         <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full bg-white shadow-md z-30 flex items-center justify-center border-2 border-white/80">
@@ -99,7 +99,7 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick, is
         </div>
       ) : (
         <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full bg-white shadow-md z-30 flex items-center justify-center border-2 border-white/80">
-          <img src={ASSETS.smileVector} alt="Default" className="w-4 h-4 object-contain opacity-60" />
+          <img src={ASSETS.smileVector} alt="Default" className="w-4 h-4 object-contain" />
         </div>
       )}
 

@@ -28,7 +28,7 @@ export const ASSETS = {
   box: '/assets/img/image 47.png',                   // Caixa ocupação/nível
   smileVector: '/assets/img/avatar2.png',           // Novo icone de fallback (ex-grid)
   faintSmile: '/assets/img/Slightly Smilling.png', // Smile para o centro do empty slot
-  systemFan: '/assets/img/Vector-1.png',           // O pequeno icone preto em forma de ventoinha para o slot
+  systemFan: '/assets/img/avatar2.png',           // Novo icone de ventoinha azul para o sistema
   
   // === ITEMS / ICONS ===
   coinGold: '/assets/img/1 2.png',                 // Moeda gold

@@ -137,6 +137,9 @@ export const mockInventorySlots: InventorySlot[] = Array.from({ length: 20 }, (_
           timerSeconds: i === 3 ? 7200 : null,
           coinValue: i === 3 ? 1000 : null,
           receivedAt: new Date().toISOString(),
+          badge: i === 0 ? 'medical' : i === 1 ? 'sound' : i === 2 ? 'book' : 'thief',
+          occupationPercent: i === 0 ? 80 : i === 1 ? 95 : i === 2 ? 10 : 50,
+          occupationCount: 35,
         }
       : null,
 }));

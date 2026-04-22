@@ -8,7 +8,7 @@ import { mockPlayer, mockInventorySlots } from '../mocks/mockData';
 
 export function InventoryPage() {
   return (
-    <div className="flex flex-col h-dvh max-w-[420px] mx-auto bg-[#1C1C1E] relative border-x border-white/5">
+    <div className="flex flex-col h-dvh max-w-[420px] mx-auto bg-[#383838] relative border-x border-white/5">
       
       <TopToolbar 
         player={mockPlayer} 
@@ -30,17 +30,15 @@ export function InventoryPage() {
       {/* 20 slots grid */}
       <div className="flex-1 overflow-hidden px-4 pb-4">
         <div className="grid grid-cols-4 gap-2 h-full content-start pt-2">
-          {mockInventorySlots.map((slot) => {
-             const variant = !slot.unlocked ? 'locked' : slot.item ? 'occupied' : 'empty';
-             return (
-               <InventorySlotCard 
-                 key={slot.position}
-                 slot={slot}
-                 variant={variant}
-                 lockLevel={!slot.unlocked ? slot.position + 3 : undefined}
-               />
-             );
-          })}
+          {mockInventorySlots.map((slot) => (
+             <InventorySlotCard 
+               key={slot.position}
+               position={slot.position}
+               unlocked={slot.unlocked}
+               item={slot.item}
+               lockLevel={!slot.unlocked ? slot.position + 3 : undefined}
+             />
+          ))}
         </div>
       </div>
       

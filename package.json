@@ -1,0 +1,43 @@
+{
+  "name": "poop-front",
+  "version": "1.0.0",
+  "description": "> **Para o Dev**: Este repositório contém tudo o que precisas para criar os componentes visuais do jogo. > **NÃO** precisas de te preocupar com lógica, API, estado, ou WebSocket — isso será integrado depois.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poopsurprise/poop-front.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/poopsurprise/poop-front/issues"
+  },
+  "homepage": "https://github.com/poopsurprise/poop-front#readme",
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.8.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-router-dom": "^7.14.2",
+    "tailwind-merge": "^3.5.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.2.4",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "tailwindcss": "^4.2.4",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.9"
+  }
+}

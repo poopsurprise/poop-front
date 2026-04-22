@@ -61,12 +61,12 @@ export const mockFriends: Friend[] = [
     inBoostGame: false, isOnline: false, streakDays: 12, cardPosition: 3,
   },
   {
-    id: 'fr_004', friendId: 'usr_005', username: 'Carlos Mendes', avatar: '/assets/img/Slightly Smilling.png',
+    id: 'fr_004', friendId: 'usr_005', username: 'Carlos Mendes', avatar: '/assets/img/image 15.png',
     level: 5, occupationPercent: 100, notificationsEnabled: true, isMutual: true,
     inBoostGame: false, isOnline: false, streakDays: 30, cardPosition: 4,
   },
   {
-    id: 'fr_005', friendId: 'usr_006', username: 'Sofia Lima', avatar: '/assets/img/Slightly Smilling.png',
+    id: 'fr_005', friendId: 'usr_006', username: 'Sofia Lima', avatar: '/assets/img/image 15.png',
     level: 20, occupationPercent: 45, notificationsEnabled: true, isMutual: true,
     inBoostGame: false, isOnline: true, streakDays: 0, cardPosition: 5,
   },

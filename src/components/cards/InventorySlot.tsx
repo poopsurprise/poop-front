@@ -98,8 +98,8 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick, is
           <img src={ASSETS.systemFan} alt="System" className="w-4 h-4 object-contain" />
         </div>
       ) : (
-        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full bg-white/80 backdrop-blur-sm shadow-md z-30 flex items-center justify-center border border-white/60">
-          <span className="text-[12px] font-bold text-gray-400">{position}</span>
+        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full bg-white shadow-md z-30 flex items-center justify-center border-2 border-white/80">
+          <img src={ASSETS.smileVector} alt="Default" className="w-4 h-4 object-contain opacity-60" />
         </div>
       )}
 

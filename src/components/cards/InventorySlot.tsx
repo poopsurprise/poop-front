@@ -63,13 +63,7 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick, is
         </div>
         {/* Main Body */}
         <div className="absolute inset-0 bg-white rounded-[18px] border border-white/40 shadow-sm flex items-center justify-center overflow-hidden">
-           {/* Icone 4 quadrados (grid) em vez do smile */}
-           <div className="w-[35%] aspect-square grid grid-cols-2 gap-1.5 opacity-[0.12]">
-             <div className="bg-black rounded-sm"></div>
-             <div className="bg-black rounded-sm"></div>
-             <div className="bg-black rounded-sm"></div>
-             <div className="bg-black rounded-sm"></div>
-           </div>
+           <img src={ASSETS.faintSmile} alt="Empty Smile" className="w-[45%] h-[45%] opacity-15 object-contain mix-blend-multiply" />
         </div>
       </button>
     );

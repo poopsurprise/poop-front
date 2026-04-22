@@ -56,14 +56,14 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick }: 
   if (!item) {
     return (
       <button id={`inventory-slot-${position - 1}`} onClick={onClick} className="relative w-full aspect-square">
-        {/* Number Tab */}
-        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full bg-white/50 backdrop-blur-sm shadow-sm z-20 flex items-center justify-center">
-          <span className="text-[11px] font-bold text-white/70">{position}</span>
+        {/* Number Tab (Círculo de Amigos) */}
+        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full bg-white shadow-md z-30 flex items-center justify-center border-2 border-white/80">
+          <span className="text-[12px] font-bold text-gray-400">{position}</span>
         </div>
         {/* Main Body */}
-        <div className="absolute inset-0 bg-white/60 backdrop-blur-sm rounded-[18px] border border-white/20 shadow-inner flex items-center justify-center">
-           {/* Add smile ghost image inside empty slot like in mockup */}
-           <img src={ASSETS.smileVector} className="w-[45%] h-[45%] opacity-10 object-contain mix-blend-multiply" />
+        <div className="absolute inset-0 bg-white rounded-[18px] border border-white/40 shadow-sm flex items-center justify-center overflow-hidden">
+           {/* Smile esbatido */}
+           <img src={ASSETS.smileVector} className="w-[45%] h-[45%] opacity-15 object-contain mix-blend-multiply" />
         </div>
       </button>
     );

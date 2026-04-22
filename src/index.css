@@ -5,8 +5,8 @@
   --color-secondary: #0A84FF;
   --color-background: #1C1C1E;
   --color-surface: #2C2C2E;
-  --color-danger: #4CAF50; /* Wait, health/medicine is green? In 19/20, health is often green. But warning is red. Let's stick to standard naming, wait... */
-  /* We will use hex codes directly for specific things. */
+  --color-success: #4CAF50;
+  --color-danger: #FF3B30;
 }
 
 @layer base {
@@ -17,7 +17,6 @@
   }
 }
 
-/* Custom utilities */
 @layer utilities {
   .glass-panel {
     @apply bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-lg;

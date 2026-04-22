@@ -22,7 +22,7 @@ export const mockPlayer: Player = {
   id: 'usr_001',
   username: 'ritinha',
   email: 'ritinha@example.com',
-  avatarUrl: '/assets/avatars/default.png',
+  avatarUrl: '/assets/img/image 12.png',
   healthPercent: 87,
   level: 7,
   piggyBalance: 250000,
@@ -46,27 +46,27 @@ export const mockPlayerDead: Player = {
 
 export const mockFriends: Friend[] = [
   {
-    id: 'fr_001', friendId: 'usr_002', username: 'Mery Domingos', avatar: '/assets/avatars/friend1.png',
+    id: 'fr_001', friendId: 'usr_002', username: 'Mery Domingos', avatar: '/assets/img/Slightly Smilling.png',
     level: 12, occupationPercent: 20, notificationsEnabled: true, isMutual: true,
     inBoostGame: false, isOnline: true, streakDays: 5, cardPosition: 1,
   },
   {
-    id: 'fr_002', friendId: 'usr_003', username: 'João Silva', avatar: '/assets/avatars/friend2.png',
+    id: 'fr_002', friendId: 'usr_003', username: 'João Silva', avatar: '/assets/img/Slightly Smilling.png',
     level: 8, occupationPercent: 65, notificationsEnabled: false, isMutual: true,
     inBoostGame: true, isOnline: true, streakDays: 0, cardPosition: 2,
   },
   {
-    id: 'fr_003', friendId: 'usr_004', username: 'Ana Costa', avatar: '/assets/avatars/friend3.png',
+    id: 'fr_003', friendId: 'usr_004', username: 'Ana Costa', avatar: '/assets/img/Slightly Smilling.png',
     level: 15, occupationPercent: 10, notificationsEnabled: true, isMutual: false,
     inBoostGame: false, isOnline: false, streakDays: 12, cardPosition: 3,
   },
   {
-    id: 'fr_004', friendId: 'usr_005', username: 'Carlos Mendes', avatar: '/assets/avatars/friend4.png',
+    id: 'fr_004', friendId: 'usr_005', username: 'Carlos Mendes', avatar: '/assets/img/Slightly Smilling.png',
     level: 5, occupationPercent: 100, notificationsEnabled: true, isMutual: true,
     inBoostGame: false, isOnline: false, streakDays: 30, cardPosition: 4,
   },
   {
-    id: 'fr_005', friendId: 'usr_006', username: 'Sofia Lima', avatar: '/assets/avatars/friend5.png',
+    id: 'fr_005', friendId: 'usr_006', username: 'Sofia Lima', avatar: '/assets/img/Slightly Smilling.png',
     level: 20, occupationPercent: 45, notificationsEnabled: true, isMutual: true,
     inBoostGame: false, isOnline: true, streakDays: 0, cardPosition: 5,
   },
@@ -78,22 +78,22 @@ export const mockFriends: Friend[] = [
 
 export const mockCatalogPoops: CatalogItem[] = [
   {
-    id: 'poop_001', name: 'Smill', image: '/assets/poops/smill.png', category: 'attack',
+    id: 'poop_001', name: 'Smill', image: '/assets/img/poop3 6.png', category: 'attack',
     priceCoins: 50, priceDiamonds: 0.02, badge: 'sound', description: 'Poop com som irritante',
     isAttack: true, attackTimerMinutes: 10, lifeInSends: null, availableInShop: true,
   },
   {
-    id: 'poop_002', name: 'Nome', image: '/assets/poops/nome.png', category: 'soft',
+    id: 'poop_002', name: 'Nome', image: '/assets/img/poop4 1.png', category: 'soft',
     priceCoins: 100, priceDiamonds: 0.02, badge: null, description: 'Poop suave',
     isAttack: false, attackTimerMinutes: null, lifeInSends: null, availableInShop: true,
   },
   {
-    id: 'poop_003', name: 'Ladrão', image: '/assets/poops/ladrao.png', category: 'attack',
+    id: 'poop_003', name: 'Ladrão', image: '/assets/img/poop5 1.png', category: 'attack',
     priceCoins: 5000000, priceDiamonds: 0.02, badge: 'thief', description: 'Rouba 20% do saldo a cada hora',
     isAttack: true, attackTimerMinutes: 10, lifeInSends: 5, availableInShop: true,
   },
   {
-    id: 'poop_004', name: 'Inspector', image: '/assets/poops/inspector.png', category: 'attack',
+    id: 'poop_004', name: 'Inspector', image: '/assets/img/poop6 1.png', category: 'attack',
     priceCoins: 500000, priceDiamonds: 0.01, badge: 'spy', description: 'Revela o saldo do alvo após 2 minutos',
     isAttack: true, attackTimerMinutes: 2, lifeInSends: null, availableInShop: true,
   },
@@ -113,6 +113,13 @@ export const mockBoostPoops: BoostPoopItem[] = [
 // Inventory (20 slots)
 // ---------------------------------------------------------------------------
 
+const SLOT_POOPS = [
+  '/assets/img/poop7 1.png',
+  '/assets/img/poop8 1.png',
+  '/assets/img/poop9 1.png',
+  '/assets/img/1 2.png', // Coin
+];
+
 export const mockInventorySlots: InventorySlot[] = Array.from({ length: 20 }, (_, i) => ({
   position: i + 1,
   unlocked: i < 7,
@@ -122,11 +129,11 @@ export const mockInventorySlots: InventorySlot[] = Array.from({ length: 20 }, (_
           id: `item_${i + 1}`,
           type: i === 3 ? ('coin' as const) : ('poop_soft' as const),
           name: i === 3 ? 'Moeda' : `Poop ${i + 1}`,
-          image: i === 3 ? '/assets/items/coin.png' : `/assets/poops/soft${i + 1}.png`,
+          image: SLOT_POOPS[i],
           state: 'active' as const,
           senderType: 'fan' as const,
           senderId: `usr_00${i + 2}`,
-          senderAvatar: `/assets/avatars/friend${i + 1}.png`,
+          senderAvatar: '/assets/img/Slightly Smilling.png',
           timerSeconds: i === 3 ? 7200 : null,
           coinValue: i === 3 ? 1000 : null,
           receivedAt: new Date().toISOString(),
@@ -186,11 +193,11 @@ export const mockGameActive1x1: GameActiveState = {
 // ---------------------------------------------------------------------------
 
 export const mockUtilities = [
-  { id: 'util_paper', name: 'Papel Higiénico', image: '/assets/items/toilet-paper.png', priceCoins: 5000, priceDiamonds: 0.001 },
-  { id: 'util_medicine', name: 'Medicamento', image: '/assets/items/medicine-cross.png', priceCoins: 5000, priceDiamonds: 0.001 },
-  { id: 'util_fan', name: 'Ventilador', image: '/assets/items/fan.png', priceCoins: 5000000, priceDiamonds: 0.10 },
-  { id: 'util_vip', name: 'VIP Pass', image: '/assets/items/vip.png', priceCoins: 500000000, priceDiamonds: 2.99 },
-  { id: 'util_boss', name: 'Boss Card', image: '/assets/items/boss.png', priceCoins: 350000000, priceDiamonds: 1.99 },
+  { id: 'util_paper', name: 'Papel Higiénico', image: '/assets/img/papel sem fundo2 1.png', priceCoins: 5000, priceDiamonds: 0.001 },
+  { id: 'util_medicine', name: 'Medicamento', image: '/assets/img/medical-icon_i-cardiology.png', priceCoins: 5000, priceDiamonds: 0.001 },
+  { id: 'util_fan', name: 'Ventilador', image: '/assets/img/ventildor 1.png', priceCoins: 5000000, priceDiamonds: 0.10 },
+  { id: 'util_vip', name: 'VIP Pass', image: '/assets/img/vip 1.png', priceCoins: 500000000, priceDiamonds: 2.99 },
+  { id: 'util_boss', name: 'Boss Card', image: '/assets/img/image 112.png', priceCoins: 350000000, priceDiamonds: 1.99 },
 ];
 
 // ---------------------------------------------------------------------------

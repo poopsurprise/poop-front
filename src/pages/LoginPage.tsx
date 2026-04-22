@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AuthInput } from '../components/ui/AuthInput';
 import { PrimaryButton } from '../components/ui/PrimaryButton';
+import { ASSETS } from '../constants/assets';
 
 export function LoginPage() {
   const [email, setEmail] = useState('');
@@ -17,31 +18,16 @@ export function LoginPage() {
   };
 
   return (
-    <div className="flex flex-col h-dvh max-w-[420px] mx-auto bg-white/95 relative overflow-hidden">
-      
-      {/* Decorative Bottom Scooter */}
-      <img 
-        src="/assets/img/scooter-bottom.png" 
-        alt="Scooter" 
-        className="absolute bottom-6 left-0 w-32 object-contain opacity-50 pointer-events-none"
-      />
+    <div className="flex flex-col h-dvh max-w-[420px] mx-auto bg-white relative overflow-hidden">
 
       <div className="flex-1 flex flex-col px-6 pt-12 pb-6 z-10">
         
         {/* LOGO */}
         <div className="flex justify-center mb-10 w-full">
            <img 
-             src="/assets/img/LOGO_POOP_SURPRISE.png" 
+             src={ASSETS.logoFull} 
              alt="Poop Surprise" 
-             className="w-[200px] h-auto object-contain drop-shadow-md"
-             onError={(e) => { e.currentTarget.style.display = 'none'; }}
-           />
-           {/* Fallback caso a imagem se chame logo-full.png */}
-           <img 
-             src="/assets/img/logo-full.png" 
-             alt="Poop Surprise" 
-             className="w-[200px] h-auto object-contain drop-shadow-md absolute"
-             onError={(e) => { e.currentTarget.style.display = 'none'; }}
+             className="w-[240px] h-auto object-contain drop-shadow-md"
            />
         </div>
 
@@ -92,21 +78,29 @@ export function LoginPage() {
         <div className="flex justify-center mb-auto">
           <button 
             id="btn-login-google"
-            className="w-16 h-16 bg-white rounded-full shadow-[0_4px_15px_rgba(0,0,0,0.1)] flex items-center justify-center hover:scale-105 transition-transform"
+            className="w-16 h-16 bg-white rounded-full shadow-[0_4px_15px_rgba(0,0,0,0.1)] flex items-center justify-center hover:scale-105 transition-transform border border-gray-100"
           >
-            <img src="/assets/img/google-g.png" alt="Google" className="w-8 h-8 object-contain" />
+            {/* Google G – using text fallback since google-g.png not in assets */}
+            <span className="text-2xl font-bold" style={{ color: '#4285F4' }}>G</span>
           </button>
         </div>
 
         {/* FOOTER LINK */}
-        <p className="text-center text-gray-600 text-[14px] mt-6 bg-white/80 py-2 rounded-lg inline-block w-max self-center border border-white/50 backdrop-blur-sm z-10 shadow-sm px-4">
+        <p className="text-center text-gray-600 text-[14px] mt-6">
           Don't have an account? <button id="link-signup" className="text-[#0A84FF] font-bold hover:underline">Sign Up</button>
         </p>
 
       </div>
       
+      {/* Decorative scooter */}
+      <img 
+        src={ASSETS.deliveryScooter} 
+        alt="Scooter" 
+        className="absolute bottom-8 left-4 w-24 object-contain opacity-30 pointer-events-none"
+      />
+
       {/* BARRA DE COR NO FUNDO */}
-      <div className="h-6 w-full bg-[#0A84FF]" />
+      <div className="h-6 w-full bg-[#0A84FF] shrink-0" />
 
     </div>
   );

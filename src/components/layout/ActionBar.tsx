@@ -1,5 +1,6 @@
 import React from 'react';
 import type { ActionBarProps } from '../../types/components';
+import { ASSETS } from '../../constants/assets';
 
 export function ActionBar({
   piggyBalance,
@@ -26,9 +27,8 @@ export function ActionBar({
         className="flex-1 flex flex-col items-center justify-end h-full relative group transition-transform active:scale-95"
       >
         <div className="w-full bg-[#2C2C2E] rounded-xl h-20 flex flex-col items-center justify-end pb-1 border border-white/5 relative z-0">
-           {/* Overlapping icon */}
-           <img 
-            src="/assets/img/porquinho 1.png" 
+          <img 
+            src={ASSETS.piggyBank}
             alt="Piggy Bank" 
             className="absolute -top-4 w-12 object-contain z-10"
           />
@@ -44,7 +44,7 @@ export function ActionBar({
       >
         <div className="w-[72px] h-[72px] rounded-full bg-[#2C2C2E] flex flex-col items-center justify-end pb-2 border border-white/5 relative z-0 mx-auto">
           <img 
-            src="/assets/img/papel sem fundo2 1.png" 
+            src={ASSETS.toiletPaper}
             alt="Toilet Paper" 
             className="absolute -top-3 w-10 object-contain z-10"
           />
@@ -60,7 +60,7 @@ export function ActionBar({
       >
         <div className="w-full bg-[#2C2C2E] rounded-xl h-20 flex flex-col items-center justify-end pb-1 border border-white/5 relative z-0">
           <img 
-            src="/assets/img/delivery 1.png" 
+            src={ASSETS.deliveryScooter}
             alt="Delivery Scooter" 
             className="absolute -top-3 w-12 object-contain z-10"
           />
@@ -76,7 +76,7 @@ export function ActionBar({
       >
         <div className="w-full bg-[#2C2C2E] rounded-xl h-20 flex flex-col items-center justify-end pb-1 border border-white/5 relative z-0">
           <img 
-            src="/assets/img/ventildor 1.png" 
+            src={ASSETS.fan}
             alt="Fan" 
             className="absolute -top-4 w-12 object-contain z-10"
           />

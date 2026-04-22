@@ -1,5 +1,6 @@
 import React from 'react';
 import type { TopToolbarProps } from '../../types/components';
+import { ASSETS } from '../../constants/assets';
 
 export function TopToolbar({
   player,
@@ -10,28 +11,26 @@ export function TopToolbar({
   onGamesClick,
 }: TopToolbarProps) {
   // Select health icon based on percentage
-  let healthIcon = '/assets/img/health-figure.png'; // Need to map correctly if multiple exists. There are "human body-1.png", "human body-2.png", "human body-3.png", "esqueleto 2.png"
+  let healthIcon = ASSETS.healthBody1;
   if (player.healthPercent === 0) {
-    healthIcon = '/assets/img/esqueleto 2.png';
+    healthIcon = ASSETS.skeleton;
   } else if (player.healthPercent < 30) {
-    healthIcon = '/assets/img/human body-3.png';
+    healthIcon = ASSETS.healthBody3;
   } else if (player.healthPercent < 70) {
-    healthIcon = '/assets/img/human body-2.png';
-  } else {
-    healthIcon = '/assets/img/human body-1.png';
+    healthIcon = ASSETS.healthBody2;
   }
 
   return (
-    <div className="h-[72px] w-full flex items-center justify-between px-4 bg-[#1C1C1E] border-b border-white/10 shrink-0">
+    <div className="h-[72px] w-full flex items-center justify-between px-3 bg-[#1C1C1E] border-b border-white/10 shrink-0">
       
       {/* 1. Avatar */}
       <button 
         id="toolbar-avatar" 
         onClick={onAvatarClick}
-        className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-white/20 hover:border-white/40 transition-colors"
+        className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-white/20 hover:border-white/40 transition-colors shrink-0"
       >
         <img 
-          src={player.avatarUrl || '/assets/img/image 12.png'} 
+          src={player.avatarUrl || ASSETS.defaultAvatar} 
           alt="Avatar" 
           className="w-full h-full object-cover bg-gray-800"
         />
@@ -51,7 +50,7 @@ export function TopToolbar({
         id="toolbar-diamonds" 
         className="flex items-center gap-1 bg-black/30 rounded-full px-2 py-1"
       >
-        <img src="/assets/img/diamond.png" alt="Diamonds" className="h-5 object-contain" />
+        <span className="text-base">💎</span>
         <span className="text-sm font-bold text-white">{player.diamondBalance.toFixed(1)}</span>
       </div>
 
@@ -59,9 +58,9 @@ export function TopToolbar({
       <button 
         id="toolbar-games" 
         onClick={onGamesClick}
-        className="relative flex items-center justify-center bg-black/30 w-10 h-10 rounded-full"
+        className="relative flex items-center justify-center bg-black/30 w-10 h-10 rounded-full shrink-0 transition-transform active:scale-95"
       >
-        <img src="/assets/img/swords-icon.png" alt="Games" className="h-5 object-contain" />
+        <img src={ASSETS.swords} alt="Games" className="h-6 object-contain" />
         {activeGames > 0 && (
           <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
             {activeGames}
@@ -69,14 +68,14 @@ export function TopToolbar({
         )}
       </button>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1">
         {/* 5. Friends */}
         <button 
           id="toolbar-friends" 
           onClick={onFriendsClick}
           className="shrink-0 transition-transform active:scale-95"
         >
-          <img src="/assets/img/friends-group.png" alt="Friends" className="w-14 h-12 object-contain" />
+          <img src={ASSETS.friends} alt="Friends" className="w-10 h-10 object-contain" />
         </button>
 
         {/* 6. Shop */}
@@ -85,7 +84,7 @@ export function TopToolbar({
           onClick={onShopClick}
           className="shrink-0 transition-transform active:scale-95"
         >
-          <img src="/assets/img/shop-icon.png" alt="Shop" className="w-14 h-12 object-contain" />
+          <img src={ASSETS.shop} alt="Shop" className="w-10 h-10 object-contain" />
         </button>
       </div>
 

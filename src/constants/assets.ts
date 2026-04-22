@@ -26,7 +26,7 @@ export const ASSETS = {
   // === BOTTOM BAR ===
   chest: '/assets/img/image 90.png',               // Baú do tesouro
   box: '/assets/img/image 47.png',                   // Caixa ocupação/nível
-  smileVector: '/assets/img/Vector.png',           // Icone grid original (se precisar)
+  smileVector: '/assets/img/avatar2.png',           // Novo icone de fallback (ex-grid)
   faintSmile: '/assets/img/Slightly Smilling.png', // Smile para o centro do empty slot
   systemFan: '/assets/img/Vector-1.png',           // O pequeno icone preto em forma de ventoinha para o slot
   
@@ -97,6 +97,6 @@ export const ASSETS = {
   poop34: '/assets/img/poop34 1.png',
   
   // === DEFAULT / FALLBACK ===
-  defaultAvatar: '/assets/img/image 12.png',
+  defaultAvatar: '/assets/img/avatar.png',
   slotBackground: '/assets/img/Rectangle 84.png',  // Fundo slot (cinza arredondado)
 } as const;

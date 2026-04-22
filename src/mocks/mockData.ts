@@ -22,7 +22,7 @@ export const mockPlayer: Player = {
   id: 'usr_001',
   username: 'ritinha',
   email: 'ritinha@example.com',
-  avatarUrl: '/assets/img/image 12.png',
+  avatarUrl: '/assets/img/image 15.png',
   healthPercent: 87,
   level: 7,
   piggyBalance: 250000,
@@ -46,17 +46,17 @@ export const mockPlayerDead: Player = {
 
 export const mockFriends: Friend[] = [
   {
-    id: 'fr_001', friendId: 'usr_002', username: 'Mery Domingos', avatar: '/assets/img/Slightly Smilling.png',
+    id: 'fr_001', friendId: 'usr_002', username: 'Mery Domingos', avatar: '/assets/img/image 15.png',
     level: 12, occupationPercent: 20, notificationsEnabled: true, isMutual: true,
     inBoostGame: false, isOnline: true, streakDays: 5, cardPosition: 1,
   },
   {
-    id: 'fr_002', friendId: 'usr_003', username: 'João Silva', avatar: '/assets/img/Slightly Smilling.png',
+    id: 'fr_002', friendId: 'usr_003', username: 'João Silva', avatar: '/assets/img/image 15.png',
     level: 8, occupationPercent: 65, notificationsEnabled: false, isMutual: true,
     inBoostGame: true, isOnline: true, streakDays: 0, cardPosition: 2,
   },
   {
-    id: 'fr_003', friendId: 'usr_004', username: 'Ana Costa', avatar: '/assets/img/Slightly Smilling.png',
+    id: 'fr_003', friendId: 'usr_004', username: 'Ana Costa', avatar: '/assets/img/image 15.png',
     level: 15, occupationPercent: 10, notificationsEnabled: true, isMutual: false,
     inBoostGame: false, isOnline: false, streakDays: 12, cardPosition: 3,
   },
@@ -131,9 +131,9 @@ export const mockInventorySlots: InventorySlot[] = Array.from({ length: 20 }, (_
           name: i === 3 ? 'Moeda' : `Poop ${i + 1}`,
           image: SLOT_POOPS[i],
           state: 'active' as const,
-          senderType: 'fan' as const,
+          senderType: i === 1 ? ('system' as const) : ('friend' as const),
           senderId: `usr_00${i + 2}`,
-          senderAvatar: '/assets/img/Slightly Smilling.png',
+          senderAvatar: i === 1 ? undefined : '/assets/img/image 15.png', // slot 2 has no avatar -> shows Fan
           timerSeconds: i === 3 ? 7200 : null,
           coinValue: i === 3 ? 1000 : null,
           receivedAt: new Date().toISOString(),

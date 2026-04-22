@@ -26,7 +26,8 @@ export const ASSETS = {
   // === BOTTOM BAR ===
   chest: '/assets/img/image 90.png',               // Baú do tesouro
   box: '/assets/img/image 47.png',                   // Caixa ocupação/nível
-  smileVector: '/assets/img/Vector.png',           // Smile no slot vazio
+  smileVector: '/assets/img/Vector.png',           // Icone grid original (se precisar)
+  faintSmile: '/assets/img/Slightly Smilling.png', // Smile para o centro do empty slot
   
   // === ITEMS / ICONS ===
   coinGold: '/assets/img/1 2.png',                 // Moeda gold

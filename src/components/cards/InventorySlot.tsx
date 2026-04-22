@@ -42,14 +42,10 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick }: 
       <div id={`inventory-slot-${position - 1}`} className="relative w-full aspect-square cursor-not-allowed">
         {/* Number Tab */}
         <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full bg-white/30 backdrop-blur-sm shadow-sm z-20 flex items-center justify-center">
-          <span className="text-[11px] font-bold text-white/50">{position}</span>
         </div>
         {/* Main Glass Body */}
         <div className="absolute inset-0 bg-white/30 backdrop-blur-sm rounded-[18px] flex flex-col items-center justify-center border border-white/10 shadow-inner">
           <img src={ASSETS.box} alt="Locked" className="w-[50%] h-[50%] object-contain drop-shadow-sm opacity-80" />
-          {lockLevel && (
-            <span className="text-[12px] font-bold text-white/40 mt-0.5">+{lockLevel}</span>
-          )}
         </div>
       </div>
     );
@@ -61,7 +57,6 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick }: 
       <button id={`inventory-slot-${position - 1}`} onClick={onClick} className="relative w-full aspect-square">
         {/* Number Tab */}
         <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full bg-white/50 backdrop-blur-sm shadow-sm z-20 flex items-center justify-center">
-          <span className="text-[11px] font-bold text-white/70">{position}</span>
         </div>
         {/* Main Body */}
         <div className="absolute inset-0 bg-white/60 backdrop-blur-sm rounded-[18px] border border-white/20 shadow-inner flex items-center justify-center">
@@ -117,19 +112,8 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick }: 
           <img 
             src={item.image} 
             alt={item.name} 
-            className="w-[70%] h-[70%] object-contain drop-shadow-md" 
+            className="w-[85%] h-[85%] object-contain drop-shadow-md" 
           />
-        </div>
-
-        {/* Occupation bar — bottom */}
-        <div className="flex items-center gap-1 px-1.5 pb-1 z-20">
-          <div className="flex-1 h-[4px] bg-gray-200/50 rounded-full overflow-hidden">
-            <div 
-              className="h-full rounded-full transition-all" 
-              style={{ width: `${occupPercent}%`, backgroundColor: barColor }}
-            />
-          </div>
-          <span className="text-[9px] font-bold text-gray-500 leading-none">{occupCount}</span>
         </div>
       </div>
     </button>

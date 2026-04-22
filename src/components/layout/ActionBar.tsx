@@ -35,16 +35,14 @@ export function ActionBar({
         </div>
       </button>
 
-      {/* 2. Paper Stock — Fundo igual aos outros, mas com círculo azul no centro */}
+      {/* 2. Paper Stock — Fundo igual aos outros, mas com contorno exterior cyan sem círculo interior */}
       <button id="action-paper" onClick={onPaperClick} className={`flex-1 ${itemBase}`}>
-        <div className="w-full bg-[#6b6b6b] rounded-xl h-[80px] flex flex-col items-center justify-center border border-white/10 relative overflow-visible">
-          <div className="w-[52px] h-[52px] rounded-full bg-[#4DD0E1] flex items-center justify-center border-2 border-white -mt-1 shadow-sm">
-            <img 
-              src={ASSETS.toiletPaper}
-              alt="Toilet Paper" 
-              className="w-8 h-8 object-contain"
-            />
-          </div>
+        <div className="w-full bg-[#6b6b6b] rounded-xl h-[80px] flex flex-col items-center justify-center border-2 border-[#4DD0E1] relative overflow-visible shadow-[0_0_10px_rgba(77,208,225,0.15)]">
+          <img 
+            src={ASSETS.toiletPaper}
+            alt="Toilet Paper" 
+            className="w-12 h-12 object-contain -mt-2 drop-shadow-sm"
+          />
           <span className={labelStyle}>{paperStock}</span>
         </div>
       </button>

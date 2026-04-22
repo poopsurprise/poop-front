@@ -15,7 +15,7 @@ export const ASSETS = {
   skeleton: '/assets/img/esqueleto 2.png',         // Morto (0%)
   swords: '/assets/img/image 145.png',             // Espadas cruzadas (jogos)
   friends: '/assets/img/image 4.png',              // Grupo de amigos
-  shop: '/assets/img/image 27.png',                // Caixa registadora (loja)
+  shop: '/assets/img/store.png',                // Caixa registadora (loja)
   
   // === ACTION BAR ===
   piggyBank: '/assets/img/porquinho 1.png',
@@ -25,12 +25,13 @@ export const ASSETS = {
   
   // === BOTTOM BAR ===
   chest: '/assets/img/image 90.png',               // Baú do tesouro
-  basket: '/assets/img/image 101.png',              // Cesto verde (shop)
+  box: '/assets/img/image 47.png',                   // Caixa ocupação/nível
+  smileVector: '/assets/img/Vector.png',           // Smile no slot vazio
   
   // === ITEMS / ICONS ===
   coinGold: '/assets/img/1 2.png',                 // Moeda gold
   coinHole: '/assets/img/moeda furada.png',        // Moeda furada
-  diamond: '/assets/img/Ellipse 1.png',            // Diamante (placeholder círculo azul)
+  diamond: '/assets/img/diamante.png',             // Diamante (placeholder círculo azul)
   bomb: '/assets/img/image 179.png',               // Bomba
   gift: '/assets/img/image 97.png',                // Presente
   bell: '/assets/img/image 46.png',                // Sino notificações

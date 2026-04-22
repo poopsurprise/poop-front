@@ -35,9 +35,9 @@ export function ActionBar({
         </div>
       </button>
 
-      {/* 2. Paper Stock — Fundo igual aos outros, mas com contorno exterior cyan sem círculo interior */}
+      {/* 2. Paper Stock */}
       <button id="action-paper" onClick={onPaperClick} className={`flex-1 ${itemBase}`}>
-        <div className="w-full bg-[#6b6b6b] rounded-xl h-[80px] flex flex-col items-center justify-center border-2 border-[#4DD0E1] relative overflow-visible shadow-[0_0_10px_rgba(77,208,225,0.15)]">
+        <div className="w-full bg-[#6b6b6b] rounded-xl h-[80px] flex flex-col items-center justify-center border border-white/10 relative overflow-visible">
           <img 
             src={ASSETS.toiletPaper}
             alt="Toilet Paper" 

@@ -42,6 +42,7 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick }: 
       <div id={`inventory-slot-${position - 1}`} className="relative w-full aspect-square cursor-not-allowed">
         {/* Number Tab */}
         <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full bg-white/30 backdrop-blur-sm shadow-sm z-20 flex items-center justify-center">
+          <span className="text-[11px] font-bold text-white/50">{position}</span>
         </div>
         {/* Main Glass Body */}
         <div className="absolute inset-0 bg-white/30 backdrop-blur-sm rounded-[18px] flex flex-col items-center justify-center border border-white/10 shadow-inner">
@@ -57,6 +58,7 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick }: 
       <button id={`inventory-slot-${position - 1}`} onClick={onClick} className="relative w-full aspect-square">
         {/* Number Tab */}
         <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full bg-white/50 backdrop-blur-sm shadow-sm z-20 flex items-center justify-center">
+          <span className="text-[11px] font-bold text-white/70">{position}</span>
         </div>
         {/* Main Body */}
         <div className="absolute inset-0 bg-white/60 backdrop-blur-sm rounded-[18px] border border-white/20 shadow-inner flex items-center justify-center">

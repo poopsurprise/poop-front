@@ -63,13 +63,8 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick, is
         </div>
         {/* Main Body */}
         <div className="absolute inset-0 bg-white rounded-[18px] border border-white/40 shadow-sm flex items-center justify-center overflow-hidden">
-           {/* Icone 4 quadrados (grid) em vez do smile */}
-           <div className="w-[35%] aspect-square grid grid-cols-2 gap-1.5 opacity-[0.12]">
-             <div className="bg-black rounded-sm"></div>
-             <div className="bg-black rounded-sm"></div>
-             <div className="bg-black rounded-sm"></div>
-             <div className="bg-black rounded-sm"></div>
-           </div>
+           {/* Smile no centro do espaço vazio */}
+           <img src={ASSETS.smileVector} className="w-[45%] h-[45%] opacity-[0.15] object-contain mix-blend-multiply" />
         </div>
       </button>
     );
@@ -100,8 +95,8 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick, is
           <img src={item.senderAvatar} alt="Sender" className="w-full h-full object-cover mix-blend-multiply" />
         </div>
       ) : (
-        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full overflow-hidden border-[1.5px] border-blue-100 shadow-sm bg-white z-30 flex items-center justify-center">
-          <img src={ASSETS.smileVector} alt="Empty Sender" className="w-[18px] h-[18px] opacity-30 object-contain mix-blend-multiply" />
+        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full overflow-hidden border-2 border-white shadow-md bg-white z-30 flex items-center justify-center">
+          <img src={ASSETS.fan} alt="System Fan Sender" className="w-[18px] h-[18px] object-contain drop-shadow-sm" />
         </div>
       )}
 

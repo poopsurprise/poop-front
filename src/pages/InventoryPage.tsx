@@ -37,6 +37,12 @@ export function InventoryPage() {
                unlocked={slot.unlocked}
                item={slot.item}
                lockLevel={!slot.unlocked ? slot.position + 3 : undefined}
+               isSelected={slot.position === 3}
+               onClick={() => {
+                 if (slot.unlocked) {
+                   console.log('Clicked slot:', slot.position);
+                 }
+               }}
              />
           ))}
         </div>

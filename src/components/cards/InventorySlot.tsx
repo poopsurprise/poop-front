@@ -19,6 +19,7 @@ export interface InventorySlotProps {
   item: SlotItem | null;
   lockLevel?: number;    
   onClick?: () => void;
+  isSelected?: boolean;
 }
 
 function getBadgeIcon(badge: string | null | undefined): string | null {
@@ -34,7 +35,7 @@ function getBadgeIcon(badge: string | null | undefined): string | null {
   }
 }
 
-export function InventorySlot({ position, unlocked, item, lockLevel, onClick }: InventorySlotProps) {
+export function InventorySlot({ position, unlocked, item, lockLevel, onClick, isSelected }: InventorySlotProps) {
   
   // ── Variação C — Bloqueado ──
   if (!unlocked) {
@@ -62,8 +63,13 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick }: 
         </div>
         {/* Main Body */}
         <div className="absolute inset-0 bg-white rounded-[18px] border border-white/40 shadow-sm flex items-center justify-center overflow-hidden">
-           {/* Smile esbatido */}
-           <img src={ASSETS.smileVector} className="w-[45%] h-[45%] opacity-15 object-contain mix-blend-multiply" />
+           {/* Icone 4 quadrados (grid) em vez do smile */}
+           <div className="w-[35%] aspect-square grid grid-cols-2 gap-1.5 opacity-[0.12]">
+             <div className="bg-black rounded-sm"></div>
+             <div className="bg-black rounded-sm"></div>
+             <div className="bg-black rounded-sm"></div>
+             <div className="bg-black rounded-sm"></div>
+           </div>
         </div>
       </button>
     );
@@ -73,12 +79,6 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick }: 
   const isSick = item.state === 'sick';
   const isDead = item.state === 'dead';
   const badgeIcon = getBadgeIcon(item.badge);
-  const occupPercent = item.occupationPercent ?? 50;
-  const occupCount = item.occupationCount ?? 20;
-
-  let barColor = '#4CAF50'; 
-  if (occupPercent > 70) barColor = '#FF9800'; 
-  if (occupPercent > 90) barColor = '#F44336'; 
 
   return (
     <button
@@ -88,14 +88,20 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick }: 
         isSick ? 'opacity-80' : isDead ? 'opacity-50 grayscale' : ''
       }`}
     >
-      {/* Mini sender avatar — top-left circle overlapping the box */}
-      {item.senderAvatar ? (
+      {/* Top-left Indicator: Selection Checkmark OR Sender Avatar */}
+      {isSelected ? (
+        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full bg-blue-600 border-2 border-white shadow-md z-40 flex items-center justify-center">
+          <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+      ) : item.senderAvatar ? (
         <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full overflow-hidden border-2 border-white shadow-md bg-blue-100 z-30">
           <img src={item.senderAvatar} alt="Sender" className="w-full h-full object-cover mix-blend-multiply" />
         </div>
       ) : (
-        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full bg-white/80 shadow-md z-30 flex items-center justify-center">
-          <img src={ASSETS.smileVector} className="w-4 h-4 opacity-30 object-contain" />
+        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full overflow-hidden border-2 border-white shadow-md bg-white z-30 flex items-center justify-center">
+          <img src={ASSETS.fan} alt="System Fan" className="w-5 h-5 object-contain" />
         </div>
       )}
 

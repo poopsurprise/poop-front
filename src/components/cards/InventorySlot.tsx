@@ -99,9 +99,13 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick, is
         <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full overflow-hidden border-2 border-white shadow-md bg-blue-100 z-30">
           <img src={item.senderAvatar} alt="Sender" className="w-full h-full object-cover mix-blend-multiply" />
         </div>
+      ) : item.senderType === 'system' ? (
+        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full bg-white shadow-md z-30 flex items-center justify-center border-2 border-white/80">
+          <img src={ASSETS.systemFan} alt="System" className="w-4 h-4 object-contain" />
+        </div>
       ) : (
-        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full overflow-hidden border-2 border-white shadow-md bg-white z-30 flex items-center justify-center">
-          <img src={ASSETS.fan} alt="System Fan Sender" className="w-[18px] h-[18px] object-contain drop-shadow-sm" />
+        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full bg-white/80 backdrop-blur-sm shadow-md z-30 flex items-center justify-center border border-white/60">
+          <span className="text-[12px] font-bold text-gray-400">{position}</span>
         </div>
       )}
 

@@ -1,17 +1,16 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ASSETS } from '../constants/assets';
 import { useAuth } from '../hooks/useAuth';
+import { trpc } from '../lib/trpc';
 import { Camera, X, CheckCircle, ChevronDown } from 'lucide-react';
-import { supabase } from '../lib/supabase';
 
 /**
  * TELA 03 — COMPLETAR PERFIL (Step 2/2)
  * Mockup: Registo2/2.png
  *
  * After registration, user completes their profile here.
- * Saves directly to Supabase user_metadata for now.
- * When the backend tRPC client is set up, this will call auth.completeProfile.
+ * Calls auth.completeProfile via tRPC to persist to database.
  */
 
 const YEARS = Array.from({ length: 80 }, (_, i) => new Date().getFullYear() - 6 - i);
@@ -33,6 +32,7 @@ const COUNTRIES = [
 export function CompleteProfilePage() {
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
+  const completeProfile = trpc.auth.completeProfile.useMutation();
 
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [name, setName] = useState('');
@@ -73,7 +73,7 @@ export function CompleteProfilePage() {
     if (!name || name.length < 3) {
       newErrors.name = name ? 'Mínimo 3 caracteres' : 'Escolha um nome';
     }
-    if (!/^[a-zA-Z0-9_]+$/.test(name)) {
+    if (name && !/^[a-zA-Z0-9_]+$/.test(name)) {
       newErrors.name = 'Apenas letras, números, e underscore (_)';
     }
     if (!birthYear) {
@@ -89,38 +89,19 @@ export function CompleteProfilePage() {
     setSubmitting(true);
 
     try {
-      // Save to Supabase user_metadata (immediate)
-      // The backend tRPC call (auth.completeProfile) will be wired 
-      // when the tRPC client is configured. For now, save to user metadata.
-      const { error: updateError } = await supabase.auth.updateUser({
-        data: {
-          username: name,
-          country: country,
-          year_of_birth: parseInt(birthYear),
-          bonus_code: bonusCode || undefined,
-          profile_completed: true,
-        },
+      // Call backend tRPC to persist profile
+      await completeProfile.mutateAsync({
+        username: name,
+        country: country,
+        yearOfBirth: parseInt(birthYear),
+        bonusCode: bonusCode || undefined,
       });
-
-      if (updateError) {
-        setErrors({ name: updateError.message });
-        setSubmitting(false);
-        return;
-      }
-
-      // TODO: When tRPC client is ready, call:
-      // await trpc.auth.completeProfile.mutate({
-      //   username: name,
-      //   country: country,
-      //   yearOfBirth: parseInt(birthYear),
-      //   bonusCode: bonusCode || undefined,
-      //   avatarUrl: avatarPreview || undefined,
-      // });
 
       // Navigate to inventory (main game screen)
       navigate('/inventory', { replace: true });
-    } catch (err) {
-      setErrors({ name: 'Erro ao guardar perfil. Tenta novamente.' });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Erro ao guardar perfil. Tenta novamente.';
+      setErrors({ name: message });
       setSubmitting(false);
     }
   };

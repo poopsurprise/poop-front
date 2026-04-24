@@ -9,6 +9,7 @@ export interface SlotItem {
   state: string;       // 'active' | 'sick' | 'dead'
   badge?: string | null;
   senderAvatar?: string | null;
+  senderType?: 'friend' | 'system' | 'fan' | 'delivery' | 'paper' | 'backoffice' | 'auto' | null;
   occupationPercent?: number;
   occupationCount?: number;
 }

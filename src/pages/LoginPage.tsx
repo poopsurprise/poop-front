@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthInput } from '../components/ui/AuthInput';
 import { ASSETS } from '../constants/assets';
 import { useAuth } from '../hooks/useAuth';
+import { trpc } from '../lib/trpc';
 
 /**
  * TELA 01 — LOGIN
@@ -11,11 +12,13 @@ import { useAuth } from '../hooks/useAuth';
  */
 export function LoginPage() {
   const navigate = useNavigate();
-  const { signIn, signInWithGoogle, loading, error, clearError } = useAuth();
+  const { signIn, signInWithGoogle, loading } = useAuth();
+  const pingQuery = trpc.ping.useQuery();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [localError, setLocalError] = useState<string | null>(null);
+  const [authError, setAuthError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   const handleLogin = async () => {
@@ -30,7 +33,7 @@ export function LoginPage() {
     }
 
     setLocalError(null);
-    clearError();
+    setAuthError(null);
     setSubmitting(true);
 
     const result = await signIn(email, password);
@@ -38,17 +41,18 @@ export function LoginPage() {
 
     if (result.success) {
       navigate('/inventory', { replace: true });
+    } else {
+      setAuthError(result.error ?? 'Erro ao fazer login');
     }
-    // Error is set in the hook state automatically
   };
 
   const handleGoogleLogin = async () => {
-    clearError();
+    setAuthError(null);
     await signInWithGoogle();
     // Browser will redirect on success
   };
 
-  const displayError = localError || error;
+  const displayError = localError || authError;
 
   return (
     <div className="flex flex-col h-dvh max-w-[420px] mx-auto bg-white relative overflow-hidden">
@@ -64,13 +68,28 @@ export function LoginPage() {
            />
         </div>
 
+        {/* tRPC connectivity indicator (dev only) */}
+        {import.meta.env.DEV && (
+          <div className="w-full rounded-xl bg-gray-100 p-2 text-center text-xs mb-4">
+            {pingQuery.isLoading && (
+              <span className="text-gray-500">⏳ A ligar ao backend...</span>
+            )}
+            {pingQuery.isError && (
+              <span className="text-red-500">❌ Backend: {pingQuery.error.message}</span>
+            )}
+            {pingQuery.data && (
+              <span className="text-green-600">✅ Backend online</span>
+            )}
+          </div>
+        )}
+
         {/* INPUTS */}
         <AuthInput
           id="input-login-email"
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(v) => { setEmail(v); setLocalError(null); clearError(); }}
+          onChange={(v) => { setEmail(v); setLocalError(null); setAuthError(null); }}
           error={displayError && displayError.toLowerCase().includes('email') ? displayError : null}
         />
 
@@ -79,7 +98,7 @@ export function LoginPage() {
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(v) => { setPassword(v); setLocalError(null); clearError(); }}
+          onChange={(v) => { setPassword(v); setLocalError(null); setAuthError(null); }}
           error={displayError && !displayError.toLowerCase().includes('email') ? displayError : null}
         />
 

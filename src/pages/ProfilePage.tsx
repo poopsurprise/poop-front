@@ -165,12 +165,12 @@ export function ProfilePage() {
           <MenuLink 
             id="profile-affiliates"
             label="Convida Amigos e Ganha"
-            onClick={() => console.log('affiliates')}
+            onClick={() => navigate('/affiliates')}
           />
           <MenuLink 
             id="profile-notifications"
             label="Configurar Notificações"
-            onClick={() => console.log('notifications')}
+            onClick={() => navigate('/notifications')}
           />
           <MenuLink 
             id="profile-password"

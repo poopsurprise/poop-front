@@ -8,7 +8,6 @@ import type {
   Friend,
   CatalogItem,
   BoostPoopItem,
-  InventorySlot,
   GameParkingState,
   GameActiveState,
   DiamondPack,
@@ -120,7 +119,7 @@ const SLOT_POOPS = [
   '/assets/img/coin-gold.png', // Coin
 ];
 
-export const mockInventorySlots: InventorySlot[] = Array.from({ length: 20 }, (_, i) => ({
+export const mockInventorySlots = Array.from({ length: 20 }, (_, i) => ({
   position: i + 1,
   unlocked: i < 7,
   item:
@@ -133,7 +132,7 @@ export const mockInventorySlots: InventorySlot[] = Array.from({ length: 20 }, (_
         state: 'active' as const,
         senderType: 'fan' as const,
         senderId: `usr_00${i + 2}`,
-        senderAvatar: i === 0 ? '/assets/img/avatar.png' : undefined,
+        senderAvatar: i === 0 ? '/assets/img/avatar.png' : null,
         timerSeconds: i === 3 ? 7200 : null,
         coinValue: i === 3 ? 1000 : null,
         receivedAt: new Date().toISOString(),
@@ -142,7 +141,7 @@ export const mockInventorySlots: InventorySlot[] = Array.from({ length: 20 }, (_
         occupationCount: i === 0 ? 1 : i === 1 ? 2 : i === 2 ? 1 : 1,
       }
       : null,
-    isSelected: false,
+  isSelected: false,
 }));
 
 // ---------------------------------------------------------------------------

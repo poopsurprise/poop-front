@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthInput } from '../components/ui/AuthInput';
 import { ASSETS } from '../constants/assets';
@@ -15,7 +15,7 @@ import { CheckCircle } from 'lucide-react';
  */
 export function RegisterPage() {
   const navigate = useNavigate();
-  const { signUp, signInWithGoogle, loading, error, clearError } = useAuth();
+  const { signUp, signInWithGoogle } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,6 +25,7 @@ export function RegisterPage() {
     password?: string | null;
     confirm?: string | null;
   }>({});
+  const [authError, setAuthError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -44,27 +45,23 @@ export function RegisterPage() {
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
 
-    clearError();
+    setAuthError(null);
     setSubmitting(true);
 
     const result = await signUp(email, password);
     setSubmitting(false);
 
     if (result.success) {
-      // Check if email confirmation is required
-      if (result.session) {
-        // No email confirmation needed — go straight to complete-profile
-        navigate('/complete-profile', { replace: true });
-      } else {
-        // Email confirmation sent — show success message
-        setSuccess(true);
-      }
+      // TODO: Check if email confirmation is required
+      // For now, show success message to check email
+      setSuccess(true);
+    } else {
+      setAuthError(result.error ?? 'Erro ao registar');
     }
-    // Error is set in the hook state automatically
   };
 
   const handleGoogleRegister = async () => {
-    clearError();
+    setAuthError(null);
     await signInWithGoogle();
   };
 
@@ -115,8 +112,8 @@ export function RegisterPage() {
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(v) => { setEmail(v); setErrors(p => ({ ...p, email: null })); clearError(); }}
-          error={errors.email || (error && error.toLowerCase().includes('email') ? error : null)}
+          onChange={(v) => { setEmail(v); setErrors(p => ({ ...p, email: null })); setAuthError(null); }}
+          error={errors.email || (authError && authError.toLowerCase().includes('email') ? authError : null)}
         />
 
         <AuthInput
@@ -124,8 +121,8 @@ export function RegisterPage() {
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(v) => { setPassword(v); setErrors(p => ({ ...p, password: null })); clearError(); }}
-          error={errors.password || (error && error.toLowerCase().includes('password') ? error : null)}
+          onChange={(v) => { setPassword(v); setErrors(p => ({ ...p, password: null })); setAuthError(null); }}
+          error={errors.password || (authError && authError.toLowerCase().includes('password') ? authError : null)}
         />
 
         <AuthInput
@@ -138,8 +135,8 @@ export function RegisterPage() {
         />
 
         {/* General error */}
-        {error && !error.toLowerCase().includes('email') && !error.toLowerCase().includes('password') && (
-          <p className="text-red-500 text-[12px] text-center mb-2">{error}</p>
+        {authError && !authError.toLowerCase().includes('email') && !authError.toLowerCase().includes('password') && (
+          <p className="text-red-500 text-[12px] text-center mb-2">{authError}</p>
         )}
 
         {/* Spacer */}
@@ -149,9 +146,9 @@ export function RegisterPage() {
         <button
           id="btn-register-submit"
           onClick={handleRegister}
-          disabled={submitting || loading}
+          disabled={submitting}
           className={`w-full h-[56px] rounded-2xl bg-[#4A6CF7] text-white flex items-center justify-center font-bold text-[16px] transition-all shadow-[0_4px_15px_rgba(74,108,247,0.4)] hover:shadow-[0_6px_20px_rgba(74,108,247,0.5)] active:scale-[0.98] ${
-            (submitting || loading) ? 'opacity-60 cursor-not-allowed' : ''
+            submitting ? 'opacity-60 cursor-not-allowed' : ''
           }`}
         >
           {submitting ? (
@@ -195,7 +192,7 @@ export function RegisterPage() {
       {/* FOOTER */}
       <div className="relative z-10 pb-2 text-center">
         <p className="text-gray-600 text-[14px] mb-2">
-          Don't have an account?{' '}
+          Already have an account?{' '}
           <a 
             id="link-login" 
             href="/login"

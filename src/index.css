@@ -1,24 +1,97 @@
 @import "tailwindcss";
 
+/* =============================================================================
+   Design Tokens — Poop Surprise PWA
+   =============================================================================
+   Cores extraídas dos mockups. Fonte: Inter via Google Fonts.
+   Copiado de poop-front/src/index.css + extensões para a app real.
+   =========================================================================== */
+
 @theme {
+  /* Brand */
   --color-primary: #FF9800;
   --color-secondary: #0A84FF;
   --color-background: #1C1C1E;
   --color-surface: #2C2C2E;
   --color-success: #4CAF50;
   --color-danger: #FF3B30;
+
+  /* Game-specific */
+  --color-health-good: #4CAF50;
+  --color-health-warn: #FF9800;
+  --color-health-danger: #FF3B30;
+  --color-diamond: #7B61FF;
+  --color-coin: #FFD700;
+  --color-piggy: #FF69B4;
+
+  /* Surfaces */
+  --color-card: #FFFFFF;
+  --color-card-dark: #2C2C2E;
+  --color-overlay: rgba(0, 0, 0, 0.5);
 }
 
 @layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
   body {
     font-family: 'Inter', system-ui, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: var(--color-background);
+    color: #FFFFFF;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* PWA: viewport fixo, sem scroll bounce */
+  #root {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
   }
 }
 
 @layer utilities {
   .glass-panel {
     @apply bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-lg;
+  }
+
+  /* Telas sem scroll (inventário, auth, etc.) */
+  .screen-fixed {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Zona de conteúdo que cresce (flex-grow) */
+  .content-grow {
+    flex: 1 1 0%;
+    overflow: hidden;
+  }
+
+  /* Zona de conteúdo com scroll (loja, catálogo, etc.) */
+  .content-scroll {
+    flex: 1 1 0%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Max width para desktop (420px centrado) */
+  .app-container {
+    max-width: 420px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
   }
 }

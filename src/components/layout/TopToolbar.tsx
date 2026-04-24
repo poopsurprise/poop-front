@@ -11,7 +11,7 @@ export function TopToolbar({
   onGamesClick,
 }: TopToolbarProps) {
   // Select health icon based on percentage
-  let healthIcon = ASSETS.healthBody1;
+  let healthIcon: string = ASSETS.healthBody1;
   if (player.healthPercent === 0) {
     healthIcon = ASSETS.skeleton;
   } else if (player.healthPercent < 30) {

@@ -175,12 +175,12 @@ export function ProfilePage() {
           <MenuLink 
             id="profile-password"
             label="Alterar Password"
-            onClick={() => console.log('password')}
+            onClick={() => navigate('/change-password')}
           />
           <MenuLink 
             id="profile-email"
             label="Alterar Email"
-            onClick={() => console.log('email')}
+            onClick={() => navigate('/change-email')}
           />
           <MenuLink 
             id="profile-logout"

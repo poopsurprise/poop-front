@@ -56,6 +56,13 @@ export const ASSETS = {
   // === GAME ===
   trophy: '/assets/img/trophy-mascot.png',             // Troféu mascote
   madPoop: '/assets/img/mad-poop.png',                 // Poop zangado (bomba)
+  gameRanking: '/assets/img/game-ranking-icon.png',    // Ranking shield
+  game1v1: '/assets/img/swords-icon.png',              // 1v1 espadas
+  gameBomba: '/assets/img/bomb-icon.png',              // Bomba game
+  doctorMascot: '/assets/img/doctor-mascot.png',       // Doutor quiz
+
+  // === SECURITY ===
+  passwordLock: '/assets/img/lock-icon.png',
 
   // === UTILITIES (Loja) ===
   medicine: '/assets/img/medicine-cross.png',

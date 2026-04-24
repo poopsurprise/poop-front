@@ -94,7 +94,7 @@ export function InventoryPage() {
         onAvatarClick={handleProfile}
         onFriendsClick={() => navigate('/friends')}
         onShopClick={() => navigate('/shop')}
-        onGamesClick={() => navigate('/delivery')}
+        onGamesClick={() => navigate('/game/parking')}
       />
       
       <ActionBar 

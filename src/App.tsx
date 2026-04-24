@@ -25,6 +25,22 @@ import { MedicinePage } from '@/pages/MedicinePage';
 import { AffiliatesPage } from '@/pages/AffiliatesPage';
 import { CatalogPage } from '@/pages/CatalogPage';
 import { ChestPage } from '@/pages/ChestPage';
+import { ChangePasswordPage } from '@/pages/ChangePasswordPage';
+import { ChangeEmailPage } from '@/pages/ChangeEmailPage';
+import { ManageFriendPage } from '@/pages/ManageFriendPage';
+import { GameParkingPage } from '@/pages/GameParkingPage';
+import { CreateGamePage } from '@/pages/CreateGamePage';
+import { BuryPoopPage } from '@/pages/BuryPoopPage';
+import { MedicineQuizPage } from '@/pages/MedicineQuizPage';
+import { CoinRewardPage } from '@/pages/CoinRewardPage';
+import { GameArenaPage } from '@/pages/GameArenaPage';
+import { GameResultPage } from '@/pages/GameResultPage';
+import { GameBombaPage } from '@/pages/GameBombaPage';
+import { GameBombaResultPage } from '@/pages/GameBombaResultPage';
+import { GameMatchmakingPage } from '@/pages/GameMatchmakingPage';
+import { CollectionBookPage } from '@/pages/CollectionBookPage';
+import { NotificationSettingsPage } from '@/pages/NotificationSettingsPage';
+import { PoopDeadPage, PoopResurrectedPage } from '@/pages/PoopStatusPages';
 
 // ---------------------------------------------------------------------------
 // Loading Screen (reutilizável)
@@ -251,6 +267,23 @@ export function App() {
             </ProfileGuard>
           }
         />
+        <Route path="/change-password" element={<ProfileGuard><ChangePasswordPage /></ProfileGuard>} />
+        <Route path="/change-email" element={<ProfileGuard><ChangeEmailPage /></ProfileGuard>} />
+        <Route path="/manage-friend" element={<ProfileGuard><ManageFriendPage /></ProfileGuard>} />
+        <Route path="/game/parking" element={<ProfileGuard><GameParkingPage /></ProfileGuard>} />
+        <Route path="/game/create" element={<ProfileGuard><CreateGamePage /></ProfileGuard>} />
+        <Route path="/game/arena" element={<ProfileGuard><GameArenaPage /></ProfileGuard>} />
+        <Route path="/game/bury" element={<ProfileGuard><BuryPoopPage /></ProfileGuard>} />
+        <Route path="/medicine/quiz" element={<ProfileGuard><MedicineQuizPage /></ProfileGuard>} />
+        <Route path="/rewards" element={<ProfileGuard><CoinRewardPage /></ProfileGuard>} />
+        <Route path="/game/result" element={<ProfileGuard><GameResultPage /></ProfileGuard>} />
+        <Route path="/game/bomba" element={<ProfileGuard><GameBombaPage /></ProfileGuard>} />
+        <Route path="/game/bomba/result" element={<ProfileGuard><GameBombaResultPage /></ProfileGuard>} />
+        <Route path="/game/matchmaking" element={<ProfileGuard><GameMatchmakingPage /></ProfileGuard>} />
+        <Route path="/collection" element={<ProfileGuard><CollectionBookPage /></ProfileGuard>} />
+        <Route path="/notification-settings" element={<ProfileGuard><NotificationSettingsPage /></ProfileGuard>} />
+        <Route path="/poop/dead" element={<ProfileGuard><PoopDeadPage /></ProfileGuard>} />
+        <Route path="/poop/resurrected" element={<ProfileGuard><PoopResurrectedPage /></ProfileGuard>} />
       </Routes>
     </BrowserRouter>
   );

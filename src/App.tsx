@@ -42,6 +42,7 @@ import { GameMatchmakingPage } from '@/pages/GameMatchmakingPage';
 import { CollectionBookPage } from '@/pages/CollectionBookPage';
 import { NotificationSettingsPage } from '@/pages/NotificationSettingsPage';
 import { PoopDeadPage, PoopResurrectedPage } from '@/pages/PoopStatusPages';
+import { SplashPage } from '@/pages/SplashPage';
 
 // ---------------------------------------------------------------------------
 // Loading Screen (reutilizável)
@@ -149,7 +150,17 @@ export function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/" element={<Navigate to="/splash" replace />} />
+
+        {/* Splash screen */}
+        <Route
+          path="/splash"
+          element={
+            <GuestGuard>
+              <SplashPage />
+            </GuestGuard>
+          }
+        />
 
         {/* Auth routes — redirect se já autenticado */}
         <Route

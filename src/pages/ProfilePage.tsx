@@ -79,7 +79,7 @@ export function ProfilePage() {
               <img 
                 src={user?.avatarUrl || ASSETS.defaultAvatar}
                 alt="Avatar"
-                className="w-full h-full object-cover scale-[1.75]"
+                className="w-full h-full object-cover"
               />
             </div>
             <button

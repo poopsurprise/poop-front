@@ -89,11 +89,11 @@ export function PoopPurchaseModal({
             <button 
               onClick={() => setCoinQty(q => Math.max(0, q - 1))}
               className="flex-1 h-8 bg-white border border-gray-200 shadow-sm rounded-lg flex items-center justify-center text-gray-600 text-xl font-bold active:bg-gray-100"
-            >+</button>
+            >-</button>
             <button 
               onClick={() => setCoinQty(q => q + 1)}
               className="flex-1 h-8 bg-white border border-gray-200 shadow-sm rounded-lg flex items-center justify-center text-gray-600 text-xl font-bold active:bg-gray-100"
-            >-</button>
+            >+</button>
           </div>
         </div>
 
@@ -110,11 +110,11 @@ export function PoopPurchaseModal({
             <button 
               onClick={() => setDiamondQty(q => Math.max(0, q - 1))}
               className="flex-1 h-8 bg-white border border-gray-200 shadow-sm rounded-lg flex items-center justify-center text-gray-600 text-xl font-bold active:bg-gray-100"
-            >+</button>
+            >-</button>
             <button 
               onClick={() => setDiamondQty(q => q + 1)}
               className="flex-1 h-8 bg-white border border-gray-200 shadow-sm rounded-lg flex items-center justify-center text-gray-600 text-xl font-bold active:bg-gray-100"
-            >-</button>
+            >+</button>
           </div>
         </div>
       </div>

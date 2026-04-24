@@ -36,7 +36,7 @@ export function TopToolbar({
           <img
             src={player.avatarUrl || ASSETS.defaultAvatar} 
             alt="Avatar" 
-            className="w-full h-full object-cover scale-[1.75]" 
+            className="w-full h-full object-cover" 
           />
         </button>
 

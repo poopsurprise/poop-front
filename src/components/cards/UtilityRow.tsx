@@ -20,34 +20,44 @@ export function UtilityRow({
   return (
     <div
       id={`utility-${id}`}
-      className="flex items-center gap-3 bg-white/10 rounded-xl px-3 py-2.5 border border-white/10"
+      className="flex items-center gap-3 bg-white rounded-2xl px-3 py-2 shadow-sm border border-gray-100"
     >
-      {/* Icon */}
-      <img src={image} alt={name} className="w-10 h-10 object-contain shrink-0" />
-
-      {/* Prices */}
-      <div className="flex-1 flex items-center gap-1 text-sm text-white/80">
-        <span>🪙 {priceCoins.toLocaleString()}</span>
-        <span className="text-white/30">|</span>
-        <span>💎 {priceDiamonds}</span>
+      {/* Icon Area */}
+      <div className="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center shrink-0 border border-gray-100 p-1">
+        <img src={image} alt={name} className="w-full h-full object-contain" />
       </div>
 
-      {/* Info button */}
-      <button
-        onClick={onInfoClick}
-        className="text-blue-400 text-lg shrink-0"
-        aria-label={`Info about ${name}`}
-      >
-        ⓘ
-      </button>
+      {/* Prices */}
+      <div className="flex-1 flex items-center justify-between pl-2">
+         <div className="flex items-center gap-3 text-sm text-gray-500 font-bold">
+           <div className="flex items-center gap-1">
+             <img src="/assets/img/moeda furada.png" alt="Coin" className="w-4 h-4 object-contain" />
+             <span>{priceCoins >= 1000000 ? `${priceCoins / 1000000}M` : priceCoins}</span>
+           </div>
+           <span className="text-gray-300">|</span>
+           <div className="flex items-center gap-1">
+             <img src="/assets/img/diamante.png" alt="Diamond" className="w-4 h-4 object-contain" />
+             <span>{priceDiamonds}</span>
+           </div>
+         </div>
+
+         {/* Info button */}
+         <button
+           onClick={onInfoClick}
+           className="text-gray-400 text-lg shrink-0 px-2 active:scale-95 transition-transform"
+           aria-label={`Info about ${name}`}
+         >
+           ⓘ
+         </button>
+      </div>
 
       {/* Buy button */}
       <button
         onClick={onBuyClick}
-        className="w-12 h-12 bg-[#0A84FF] rounded-xl flex items-center justify-center shrink-0 transition-transform active:scale-90"
+        className="w-14 h-14 bg-[#4A72D6] rounded-xl shadow-[0_4px_0_#3352A3] flex items-center justify-center shrink-0 transition-transform active:translate-y-1 active:shadow-none"
         aria-label={`Buy ${name}`}
       >
-        <span className="text-xl">🏪</span>
+        <img src="/assets/img/caixa registadora.png" alt="Buy" className="w-8 h-8 object-contain" onError={(e) => { e.currentTarget.src = ''; e.currentTarget.alt = '🏪' }} />
       </button>
     </div>
   );

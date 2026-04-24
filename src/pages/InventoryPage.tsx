@@ -66,7 +66,9 @@ export function InventoryPage() {
           id: slot.id,
           type: slot.itemType,
           name: slot.itemName ?? slot.itemType,
-          image: resolveItemImage(slot.itemImage),
+          image: (slot.itemType === 'COIN' && slot.itemState === 'PIERCED') 
+                 ? '/assets/img/coin-hole.png' 
+                 : resolveItemImage(slot.itemImage),
           state: slot.itemState ?? 'HEALTHY',
           badge: resolveItemBadge(slot.itemType, slot.itemImage),
           senderAvatar: slot.senderAvatar ?? null,

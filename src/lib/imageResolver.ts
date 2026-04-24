@@ -51,13 +51,15 @@ export function resolveItemImage(backendPath: string | null | undefined): string
  * Deduz o tipo de badge (ícone no canto superior direito) com base no itemType ou image.
  */
 export function resolveItemBadge(itemType: string, backendPath?: string | null): string | null {
-  // Exemplo de inferência, podes ajustar conforme a tua lógica de negócio:
-  if (itemType === 'ATTACK' || backendPath?.includes('attack')) return 'thief'; // 🏴‍☠️
-  if (itemType === 'COLLECTIBLE' || backendPath?.includes('collectible')) return 'book'; // 📖
-  if (itemType === 'BOOST' || backendPath?.includes('boost')) return 'medical'; // ➕
+  if (!itemType) return null;
+  const typeUpper = itemType.toUpperCase();
+  
+  if (typeUpper.includes('ATTACK') || backendPath?.includes('attack')) return 'thief'; // 🏴‍☠️
+  if (typeUpper.includes('COLLECTIBLE') || backendPath?.includes('collectible')) return 'book'; // 📖
+  if (typeUpper.includes('BOOST') || backendPath?.includes('boost')) return 'medical'; // ➕
   
   // Por defeito, os poops normais têm som
-  if (itemType === 'SOFT' || itemType === 'POOP') return 'sound'; // 🔊
+  if (typeUpper.includes('SOFT') || typeUpper.includes('POOP')) return 'sound'; // 🔊
   
   return null;
 }

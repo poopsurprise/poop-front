@@ -1,16 +1,24 @@
+import { ASSETS } from '../constants/assets';
+
 /**
  * Maps backend item images to actual asset paths.
  * The backend stores generic paths like /items/soft-poop-default.png
  * We map these to the real assets in /assets/img/
  */
-
 const IMAGE_MAP: Record<string, string> = {
-  '/items/soft-poop-default.png': '/assets/img/poop3 6.png',
-  '/items/coin-default.png': '/assets/img/coin-gold.png',
-  '/items/attack-poop-default.png': '/assets/img/poop3 3.png',
-  '/items/collectible-poop-default.png': '/assets/img/poop3 4.png',
-  '/items/toilet-paper-default.png': '/assets/img/papel.png',
-  '/items/boost-default.png': '/assets/img/poop3 2.png',
+  '/items/soft-poop-default.png': ASSETS.poop3,
+  '/items/coin-default.png': ASSETS.coinGold,
+  '/items/attack-poop-default.png': ASSETS.poop5,
+  '/items/collectible-poop-default.png': ASSETS.poop6,
+  '/items/toilet-paper-default.png': ASSETS.toiletPaper,
+  '/items/boost-default.png': ASSETS.poop7,
+
+  // Fallbacks para os paths criados pelo backend na inicialização
+  '/assets/poops/smill.png': ASSETS.poop3,
+  '/assets/poops/nome.png': ASSETS.poop4,
+  '/assets/poops/soft1.png': ASSETS.poop5,
+  '/assets/poops/soft2.png': ASSETS.poop6,
+  '/assets/poops/soft3.png': ASSETS.poop7,
 };
 
 /**
@@ -18,10 +26,14 @@ const IMAGE_MAP: Record<string, string> = {
  * Falls back to a poop image if not mapped.
  */
 export function resolveItemImage(backendPath: string | null | undefined): string {
-  if (!backendPath) return '/assets/img/poop3 6.png';
+  if (!backendPath) return ASSETS.poop3;
   
-  // If it starts with /assets/, it's already a frontend path
-  if (backendPath.startsWith('/assets/')) return backendPath;
+  if (IMAGE_MAP[backendPath]) {
+    return IMAGE_MAP[backendPath];
+  }
   
-  return IMAGE_MAP[backendPath] ?? '/assets/img/poop3 6.png';
+  // If it starts with /assets/img/, it's a direct frontend path we can trust
+  if (backendPath.startsWith('/assets/img/')) return backendPath;
+  
+  return ASSETS.poop3;
 }

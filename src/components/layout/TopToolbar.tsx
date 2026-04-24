@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import type { TopToolbarProps } from '../../types/components';
 import { ASSETS } from '../../constants/assets';
 
@@ -10,6 +11,8 @@ export function TopToolbar({
   onShopClick,
   onGamesClick,
 }: TopToolbarProps) {
+  const navigate = useNavigate();
+
   // Select health icon based on percentage
   let healthIcon: string = ASSETS.healthBody1;
   if (player.healthPercent === 0) {
@@ -27,7 +30,7 @@ export function TopToolbar({
         {/* 1. Avatar */}
         <button
           id="toolbar-avatar"
-          onClick={onAvatarClick}
+          onClick={onAvatarClick || (() => navigate('/profile'))}
           className="relative w-14 h-14 rounded-full overflow-hidden border-[3px] border-[#0A84FF]/20 hover:border-[#0A84FF]/40 transition-colors shrink-0 bg-[#4DD0E1]"
         >
           <img
@@ -38,29 +41,31 @@ export function TopToolbar({
         </button>
 
         {/* 2. Health */}
-        <div
+        <button
           id="toolbar-health"
-          className="flex items-end gap-0.5"
+          onClick={() => navigate('/medicine')}
+          className="flex items-end gap-0.5 hover:opacity-80 transition-opacity"
         >
           <img src={healthIcon} alt="Health" className="h-9 object-contain" />
           <span className="text-[17px] font-medium text-black leading-none mb-1">{player.healthPercent}</span>
-        </div>
+        </button>
 
         {/* 3. Diamonds */}
-        <div
+        <button
           id="toolbar-diamonds"
-          className="flex items-end gap-1 ml-1"
+          onClick={() => navigate('/diamonds')}
+          className="flex items-end gap-1 ml-1 hover:opacity-80 transition-opacity"
         >
           <img src={ASSETS.diamond} alt="Diamonds" className="h-8 object-contain" />
           <span className="text-[17px] font-medium text-black leading-none mb-1">{player.diamondBalance.toFixed(2)}</span>
-        </div>
+        </button>
       </div>
 
       <div className="flex items-center gap-3">
         {/* 4. Games [V2] */}
         <button
           id="toolbar-games"
-          onClick={onGamesClick}
+          onClick={onGamesClick || (() => navigate('/game/parking'))}
           className="relative flex items-center justify-center w-12 h-12 shrink-0 transition-transform active:scale-95"
         >
           <img src={ASSETS.swords} alt="Games" className="w-10 h-10 object-contain" />
@@ -72,7 +77,7 @@ export function TopToolbar({
         {/* 5. Friends */}
         <button
           id="toolbar-friends"
-          onClick={onFriendsClick}
+          onClick={onFriendsClick || (() => navigate('/friends'))}
           className="shrink-0 transition-transform active:scale-95"
         >
           <img src={ASSETS.friends} alt="Friends" className="w-10 h-10 object-contain" />
@@ -81,7 +86,7 @@ export function TopToolbar({
         {/* 6. Shop */}
         <button
           id="toolbar-shop"
-          onClick={onShopClick}
+          onClick={onShopClick || (() => navigate('/shop'))}
           className="shrink-0 transition-transform active:scale-95"
         >
           <img src={ASSETS.shop} alt="Shop" className="w-[46px] h-[46px] object-contain" />

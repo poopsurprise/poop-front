@@ -22,16 +22,21 @@ const mockChest = [
   { id: 'c8', name: 'Soft C', image: ASSETS.poop9, type: 'soft', badge: null },
 ];
 
+import { PoopSendModal } from '../components/modals/PoopSendModal';
+
 export function ChestPage() {
   const navigate = useNavigate();
   const [filter, setFilter] = useState<FilterTab>('all');
   const [search, setSearch] = useState('');
+  const [selectedPoopId, setSelectedPoopId] = useState<string | null>(null);
 
   const filtered = mockChest.filter(p => {
     if (filter !== 'all' && p.type !== filter) return false;
     if (search && !p.name.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
   });
+
+  const selectedPoop = mockChest.find(p => p.id === selectedPoopId);
 
   const tabs: { key: FilterTab; label: string }[] = [
     { key: 'all', label: 'All' },
@@ -41,7 +46,7 @@ export function ChestPage() {
   ];
 
   return (
-    <div className="flex flex-col h-dvh max-w-[420px] mx-auto bg-[#383838] border-x border-white/5">
+    <div className="flex flex-col h-dvh max-w-[420px] mx-auto bg-[#383838] border-x border-white/5 relative">
       {/* Header */}
       <div className="flex items-center gap-2 p-3 shrink-0">
         <span className="text-white text-lg">🧺</span>
@@ -75,12 +80,30 @@ export function ChestPage() {
             <PoopCard
               key={p.id} id={p.id} name={p.name} image={p.image}
               badge={p.badge} displayMode="chest"
-              onClick={() => console.log('Open chest poop', p.id)}
+              onClick={() => setSelectedPoopId(p.id)}
             />
           ))}
         </div>
         <div className="mt-4"><BackButton onClick={() => navigate(-1)} /></div>
       </div>
+
+      {/* Send Modal */}
+      {selectedPoop && (
+        <PoopSendModal
+          isOpen={!!selectedPoopId}
+          onClose={() => setSelectedPoopId(null)}
+          poopName={selectedPoop.name}
+          poopDescription={selectedPoop.type === 'boost' 
+            ? "Poop que ajuda o seu amigos em jogos 1x1 aumentando a probabilidade do mesmo vencer, porque terá mais para marcar. Presentei o seu amigo" 
+            : "Poop de ataque, que emite um som engraçado e aumenta o dano em 20% na vida de quem o recebe, caso não se defenda. Clica no Play para ouvir o som."}
+          poopImage={selectedPoop.image}
+          isBoost={selectedPoop.type === 'boost'}
+          onSend={(method) => {
+            console.log('Send', selectedPoop.name, 'via', method);
+            setSelectedPoopId(null);
+          }}
+        />
+      )}
     </div>
   );
 }

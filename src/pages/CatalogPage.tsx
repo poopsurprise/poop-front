@@ -23,16 +23,21 @@ const mockCatalog = [
   { id: '9', name: 'Boost Gold', image: ASSETS.poop11, priceCoins: 2000, priceDiamonds: 0.20, badge: 'boost' as const, type: 'boost' },
 ];
 
+import { PoopPurchaseModal } from '../components/modals/PoopPurchaseModal';
+
 export function CatalogPage() {
   const navigate = useNavigate();
   const [filter, setFilter] = useState<FilterTab>('all');
   const [search, setSearch] = useState('');
+  const [selectedPoopId, setSelectedPoopId] = useState<string | null>(null);
 
   const filtered = mockCatalog.filter(p => {
     if (filter !== 'all' && p.type !== filter) return false;
     if (search && !p.name.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
   });
+
+  const selectedPoop = mockCatalog.find(p => p.id === selectedPoopId);
 
   const tabs: { key: FilterTab; label: string }[] = [
     { key: 'all', label: 'All' },
@@ -42,7 +47,7 @@ export function CatalogPage() {
   ];
 
   return (
-    <div className="flex flex-col h-dvh max-w-[420px] mx-auto bg-[#383838] border-x border-white/5">
+    <div className="flex flex-col h-dvh max-w-[420px] mx-auto bg-[#383838] border-x border-white/5 relative">
       {/* Header */}
       <div className="flex items-center gap-2 p-3 shrink-0">
         <span className="text-white text-lg">📦</span>
@@ -76,12 +81,31 @@ export function CatalogPage() {
               key={p.id} id={p.id} name={p.name} image={p.image}
               priceCoins={p.priceCoins} priceDiamonds={p.priceDiamonds}
               badge={p.badge} displayMode="catalog"
-              onClick={() => console.log('Open poop', p.id)}
+              onClick={() => setSelectedPoopId(p.id)}
             />
           ))}
         </div>
         <div className="mt-4"><BackButton onClick={() => navigate(-1)} /></div>
       </div>
+
+      {/* Purchase Modal */}
+      {selectedPoop && (
+        <PoopPurchaseModal
+          isOpen={!!selectedPoopId}
+          onClose={() => setSelectedPoopId(null)}
+          poopName={selectedPoop.name}
+          poopDescription="Poop de ataque, que emite um som engraçado e aumenta o dano em 20% na vida de quem o recebe, caso não se defenda. Clica no Play para ouvir o som."
+          poopImage={selectedPoop.image}
+          coinPrice={selectedPoop.priceCoins}
+          diamondPrice={selectedPoop.priceDiamonds}
+          piggyBalance={300005}
+          diamondBalance={0.0}
+          onPurchase={(type, qty) => {
+            console.log('Purchase', type, qty, 'of', selectedPoop.name);
+            setSelectedPoopId(null);
+          }}
+        />
+      )}
     </div>
   );
 }

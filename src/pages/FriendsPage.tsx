@@ -19,16 +19,21 @@ const mockFriends = [
   { id: '8', username: 'Rui Gomes', avatar: '', occupationPercent: 40, streak: 12, isReciprocal: true },
 ];
 
+import { ManageFriendModal } from '../components/modals/ManageFriendModal';
+
 export function FriendsPage() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedFriendId, setSelectedFriendId] = useState<string | null>(null);
 
   const filtered = mockFriends.filter(f =>
     f.username.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const selectedFriend = mockFriends.find(f => f.id === selectedFriendId);
+
   return (
-    <div className="flex flex-col h-dvh max-w-[420px] mx-auto bg-[#383838] border-x border-white/5">
+    <div className="flex flex-col h-dvh max-w-[420px] mx-auto bg-[#383838] border-x border-white/5 relative">
       {/* Header */}
       <div className="flex items-center gap-2 p-4 shrink-0">
         <span className="text-white text-xl">📋</span>
@@ -56,7 +61,7 @@ export function FriendsPage() {
             <button
               key={f.id}
               id={`friend-list-${f.id}`}
-              onClick={() => console.log('Open friend', f.id)}
+              onClick={() => setSelectedFriendId(f.id)}
               className="flex flex-col items-center gap-1 py-2 transition-transform active:scale-95"
             >
               {/* Avatar */}
@@ -84,6 +89,35 @@ export function FriendsPage() {
 
       <BannerSlot type="ad" />
       <div className="h-6 bg-gradient-to-r from-orange-400 via-yellow-400 to-green-400 shrink-0" />
+
+      {/* Manage Friend Modal */}
+      {selectedFriend && (
+        <ManageFriendModal
+          isOpen={!!selectedFriendId}
+          onClose={() => setSelectedFriendId(null)}
+          friendId={selectedFriend.id}
+          friendName={selectedFriend.username}
+          friendAvatar={selectedFriend.avatar || ASSETS.defaultAvatar}
+          friendshipProgress={selectedFriend.occupationPercent}
+          onUpdateName={(name) => console.log('Update name', name)}
+          onUnfriend={() => {
+            console.log('Unfriend', selectedFriend.username);
+            setSelectedFriendId(null);
+          }}
+          onSendPoop={() => {
+            console.log('Send 1000 poop to', selectedFriend.username);
+            // Poderíamos abrir o delivery com este amigo selecionado
+            setSelectedFriendId(null);
+            navigate('/delivery');
+          }}
+          onChallenge={() => {
+            console.log('Challenge', selectedFriend.username);
+            setSelectedFriendId(null);
+            navigate('/game/parking');
+          }}
+          onToggleNotification={(enabled) => console.log('Notifications:', enabled)}
+        />
+      )}
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { ActionBar } from '../components/layout/ActionBar';
 import { BottomBar } from '../components/layout/BottomBar';
 import { InventorySlot as InventorySlotCard } from '../components/cards/InventorySlot';
 import { trpc } from '../lib/trpc';
-import { resolveItemImage } from '../lib/imageResolver';
+import { resolveItemImage, resolveItemBadge } from '../lib/imageResolver';
 
 /**
  * TELA 04 — INVENTÁRIO (Main Game Screen)
@@ -62,13 +62,13 @@ export function InventoryPage() {
     ? realSlots.map((slot) => ({
         position: slot.position,
         unlocked: slot.unlocked,
-        item: slot.itemType ? {
+          item: slot.itemType ? {
           id: slot.id,
           type: slot.itemType,
           name: slot.itemName ?? slot.itemType,
           image: resolveItemImage(slot.itemImage),
           state: slot.itemState ?? 'HEALTHY',
-          badge: null,
+          badge: resolveItemBadge(slot.itemType, slot.itemImage),
           senderAvatar: slot.senderAvatar ?? null,
           senderType: (slot.senderType?.toLowerCase() as 'fan' | 'system' | 'friend' | 'delivery' | null) ?? null,
         } : null,

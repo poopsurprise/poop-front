@@ -19,6 +19,13 @@ const IMAGE_MAP: Record<string, string> = {
   '/assets/poops/soft1.png': ASSETS.poop5,
   '/assets/poops/soft2.png': ASSETS.poop6,
   '/assets/poops/soft3.png': ASSETS.poop7,
+
+  // Coins
+  '/assets/poops/moeda_furada.png': ASSETS.coinHole,
+  '/assets/poops/moeda furada.png': ASSETS.coinHole,
+  '/items/moeda furada.png': ASSETS.coinHole,
+  '/assets/poops/coin.png': ASSETS.coinGold,
+  '/items/coin.png': ASSETS.coinGold,
 };
 
 /**
@@ -28,12 +35,29 @@ const IMAGE_MAP: Record<string, string> = {
 export function resolveItemImage(backendPath: string | null | undefined): string {
   if (!backendPath) return ASSETS.poop3;
   
-  if (IMAGE_MAP[backendPath]) {
-    return IMAGE_MAP[backendPath];
-  }
+  // Clean up URL just in case
+  const path = backendPath.replace(' ', '-');
+  
+  if (IMAGE_MAP[backendPath]) return IMAGE_MAP[backendPath];
+  if (IMAGE_MAP[path]) return IMAGE_MAP[path];
   
   // If it starts with /assets/img/, it's a direct frontend path we can trust
   if (backendPath.startsWith('/assets/img/')) return backendPath;
   
   return ASSETS.poop3;
+}
+
+/**
+ * Deduz o tipo de badge (ícone no canto superior direito) com base no itemType ou image.
+ */
+export function resolveItemBadge(itemType: string, backendPath?: string | null): string | null {
+  // Exemplo de inferência, podes ajustar conforme a tua lógica de negócio:
+  if (itemType === 'ATTACK' || backendPath?.includes('attack')) return 'thief'; // 🏴‍☠️
+  if (itemType === 'COLLECTIBLE' || backendPath?.includes('collectible')) return 'book'; // 📖
+  if (itemType === 'BOOST' || backendPath?.includes('boost')) return 'medical'; // ➕
+  
+  // Por defeito, os poops normais têm som
+  if (itemType === 'SOFT' || itemType === 'POOP') return 'sound'; // 🔊
+  
+  return null;
 }

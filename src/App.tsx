@@ -24,6 +24,7 @@ import { FriendsPage } from '@/pages/FriendsPage';
 import { MedicinePage } from '@/pages/MedicinePage';
 import { AffiliatesPage } from '@/pages/AffiliatesPage';
 import { CatalogPage } from '@/pages/CatalogPage';
+import { ChestSelectionPage } from '@/pages/ChestSelectionPage';
 import { ChestPage } from '@/pages/ChestPage';
 import { ChangePasswordPage } from '@/pages/ChangePasswordPage';
 import { ChangeEmailPage } from '@/pages/ChangeEmailPage';
@@ -261,6 +262,14 @@ export function App() {
         />
         <Route
           path="/chest"
+          element={
+            <ProfileGuard>
+              <ChestSelectionPage />
+            </ProfileGuard>
+          }
+        />
+        <Route
+          path="/chest/basket"
           element={
             <ProfileGuard>
               <ChestPage />

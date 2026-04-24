@@ -33,54 +33,85 @@ export function FriendsPage() {
   const selectedFriend = mockFriends.find(f => f.id === selectedFriendId);
 
   return (
-    <div className="flex flex-col h-dvh max-w-[420px] mx-auto bg-[#383838] border-x border-white/5 relative">
-      {/* Header */}
-      <div className="flex items-center gap-2 p-4 shrink-0">
-        <span className="text-white text-xl">📋</span>
-        <div className="flex-1 flex items-center bg-white/10 rounded-xl px-3 py-2 border border-white/10">
-          <span className="text-white/40 text-sm mr-2">ID</span>
+    <div className="flex flex-col h-dvh max-w-[420px] mx-auto bg-[#828282] border-x border-white/5 relative">
+      {/* Header Area */}
+      <div className="bg-[#b38f4d] flex items-center justify-between p-4 shrink-0 shadow-sm z-10">
+        <h1 className="text-white text-xl font-medium tracking-wide">
+          Encontrar de amigos e list...
+        </h1>
+        <button onClick={() => navigate(-1)} className="text-white text-2xl">✕</button>
+      </div>
+
+      {/* Search Bar Area */}
+      <div className="bg-white/20 p-3 mx-4 mt-4 rounded-xl shadow-inner flex items-center gap-3">
+        {/* Menu Icon Button */}
+        <button className="w-12 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm shrink-0">
+          <svg className="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        
+        {/* Input Field */}
+        <div className="flex-1 h-10 bg-white rounded-lg px-3 flex items-center shadow-sm">
+          <span className="text-gray-500 text-sm font-medium mr-2">ID</span>
           <input
             id="input-friend-search"
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Pesquisar..."
-            className="flex-1 bg-transparent text-white text-sm outline-none placeholder:text-white/30"
+            className="flex-1 bg-transparent text-gray-700 text-sm outline-none"
           />
         </div>
-        <button className="w-10 h-10 bg-[#0A84FF] rounded-xl flex items-center justify-center shrink-0">
+        
+        {/* Search Button */}
+        <button className="w-10 h-10 bg-[#4A72D6] rounded-lg flex items-center justify-center shadow-sm shrink-0">
           <img src={ASSETS.search} alt="Search" className="w-5 h-5 invert" />
         </button>
-        <button onClick={() => navigate(-1)} className="text-gray-500 text-xl ml-1">✕</button>
       </div>
 
       {/* Friends Grid */}
-      <div className="flex-1 overflow-y-auto px-3 pb-4">
+      <div className="flex-1 overflow-y-auto px-3 pb-4 pt-4">
         <div className="grid grid-cols-4 gap-2">
           {filtered.map((f) => (
             <button
               key={f.id}
               id={`friend-list-${f.id}`}
               onClick={() => setSelectedFriendId(f.id)}
-              className="flex flex-col items-center gap-1 py-2 transition-transform active:scale-95"
+              className="relative flex flex-col bg-white rounded-2xl pt-6 pb-2 px-1 items-center shadow-sm border border-gray-200 mt-6 transition-transform active:scale-95"
             >
-              {/* Avatar */}
-              <div className="w-14 h-14 rounded-full overflow-hidden border-[3px] border-green-400 bg-[#4DD0E1]">
+              {/* Overlapping Avatar */}
+              <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full overflow-hidden border-2 border-white bg-[#4DD0E1] shadow-sm">
                 <img src={f.avatar || ASSETS.defaultAvatar} alt={f.username} className="w-full h-full object-cover" />
               </div>
+              
               {/* Name */}
-              <span className="text-white text-[10px] truncate max-w-[72px] text-center leading-tight h-6">{f.username}</span>
-              {/* Occupation bar */}
-              <div className="w-12 h-1 bg-white/20 rounded-full overflow-hidden">
-                <div className="h-full bg-green-400 rounded-full" style={{ width: `${f.occupationPercent}%` }} />
+              <span className="text-gray-800 text-[9px] font-bold truncate w-full text-center mt-1">
+                {f.username}
+              </span>
+              
+              {/* Dotted separator */}
+              <div className="w-full border-t border-dotted border-gray-300 my-1"></div>
+              
+              {/* Progress and percentage */}
+              <div className="w-full px-1">
+                <div className="w-full h-1 bg-gray-200 rounded-full overflow-hidden mb-0.5">
+                  <div className="h-full bg-green-500 rounded-full" style={{ width: `${f.occupationPercent}%` }} />
+                </div>
+                <div className="text-[8px] text-gray-400 text-right font-medium w-full">
+                  {f.occupationPercent}%
+                </div>
               </div>
+              
+              {/* Dotted separator */}
+              <div className="w-full border-t border-dotted border-gray-300 my-1"></div>
+              
               {/* Stats row */}
-              <div className="flex items-center gap-1 text-[9px]">
-                <span className="text-white/60">🤝</span>
-                <span className={`${f.isReciprocal ? 'text-orange-400' : 'text-white/30'}`}>
+              <div className="flex items-center justify-between w-full px-1 text-[8px]">
+                <span className="text-gray-500 text-[10px]">🤝</span>
+                <span className={`font-bold flex items-center gap-0.5 ${f.isReciprocal ? 'text-orange-500' : 'text-gray-400'}`}>
                   💩 {f.streak}
                 </span>
-                <span className="text-white/40">⚔</span>
+                <span className="text-green-600 text-[10px]">⚔</span>
               </div>
             </button>
           ))}

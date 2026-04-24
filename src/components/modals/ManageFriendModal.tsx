@@ -86,7 +86,7 @@ export function ManageFriendModal({
         <div className="flex w-full items-center justify-center gap-6 mb-8">
           {/* Special Actions (Shield, Swords, Bomb) */}
           <button className="w-14 h-14 relative flex items-center justify-center">
-            <img src={ASSETS.shieldRanking} alt="Shield" className="w-full h-full object-contain" />
+            <img src={ASSETS.gameRanking} alt="Shield" className="w-full h-full object-contain" />
           </button>
           
           <button onClick={onChallenge} className="w-14 h-14 relative flex items-center justify-center rounded-full bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] border border-gray-100">
@@ -94,7 +94,7 @@ export function ManageFriendModal({
           </button>
 
           <button className="w-14 h-14 relative flex items-center justify-center">
-            <img src={ASSETS.bombIcon} alt="Bomb" className="w-10 h-10 object-contain" />
+            <img src={ASSETS.bomb} alt="Bomb" className="w-10 h-10 object-contain" />
           </button>
         </div>
 

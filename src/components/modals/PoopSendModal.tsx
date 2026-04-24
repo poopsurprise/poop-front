@@ -74,7 +74,7 @@ export function PoopSendModal({
             selectedMethod === 'gift' ? 'border-4 border-gray-800 scale-105' : 'border border-gray-200'
           }`}
         >
-          <img src={ASSETS.giftBox} alt="Gift" className="w-[60px] h-[60px] object-contain" />
+          <img src={ASSETS.gift} alt="Gift" className="w-[60px] h-[60px] object-contain" />
         </button>
 
         {/* Delivery */}
@@ -84,7 +84,7 @@ export function PoopSendModal({
             selectedMethod === 'delivery' ? 'border-4 border-gray-800 scale-105' : 'border border-gray-200'
           }`}
         >
-          <img src={ASSETS.scooterDelivery} alt="Delivery" className="w-[60px] h-[60px] object-contain" />
+          <img src={ASSETS.deliveryScooter} alt="Delivery" className="w-[60px] h-[60px] object-contain" />
         </button>
       </div>
 

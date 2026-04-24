@@ -3,66 +3,66 @@ import { useNavigate } from 'react-router-dom';
 import { TopToolbar } from '../components/layout/TopToolbar';
 import { BannerSlot } from '../components/layout/BannerSlot';
 import { FriendCard } from '../components/cards/FriendCard';
-import { AuthInput } from '../components/ui/AuthInput';
 import { trpc } from '../lib/trpc';
+import { usePlayerData } from '../hooks/usePlayerData';
 import { ASSETS } from '../constants/assets';
 
 /**
  * TELA 06 — DELIVERY
- * Mockup: Delivery e lista de amigos disponiveis.png
+ * Dados reais via tRPC: social.friends + sending.delivery
  */
-
-const mockFriends = [
-  { id: '1', username: 'Mery Domingosm', avatar: '', variant: 'available' as const, occupationPercent: 20 },
-  { id: '2', username: 'João Silva', avatar: '', variant: 'full' as const, occupationPercent: 100 },
-  { id: '3', username: 'Ana Costa', avatar: '', variant: 'ceasefire' as const, occupationPercent: 50 },
-  { id: '4', username: 'Carlos', avatar: '', variant: 'noreturn_poop' as const, occupationPercent: 30 },
-  { id: '5', username: 'Maria', avatar: '', variant: 'available' as const, occupationPercent: 10 },
-  { id: '6', username: 'Pedro', avatar: '', variant: 'dead' as const, occupationPercent: 0 },
-  { id: '7', username: 'Sara', avatar: '', variant: 'noreturn_coin' as const, occupationPercent: 60 },
-  { id: '8', username: 'Rui', avatar: '', variant: 'in_boost_game' as const, occupationPercent: 40 },
-  { id: '9', username: 'Tiago', avatar: '', variant: 'available' as const, occupationPercent: 55 },
-  { id: '10', username: 'Inês', avatar: '', variant: 'available' as const, occupationPercent: 15 },
-  { id: '11', username: 'Miguel', avatar: '', variant: 'available' as const, occupationPercent: 75 },
-  { id: '12', username: 'Sofia', avatar: '', variant: 'available' as const, occupationPercent: 90 },
-];
 
 export function DeliveryPage() {
   const navigate = useNavigate();
-  const meQuery = trpc.auth.me.useQuery(undefined, { staleTime: 60_000 });
-  const user = meQuery.data;
-  const [recipientId, setRecipientId] = useState('');
+  const { playerData } = usePlayerData();
+  const friendsQuery = trpc.social.friends.useQuery(undefined, { staleTime: 30_000 });
+  const deliveryMutation = trpc.sending.delivery.useMutation();
+  const utils = trpc.useUtils();
+
+  const [recipientUsername, setRecipientUsername] = useState('');
+  const [selectedPosition, setSelectedPosition] = useState(1); // TODO: receive from inventory selection
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
-  const playerData = {
-    id: user?.id ?? '',
-    username: user?.username ?? '...',
-    email: user?.email ?? '',
-    avatarUrl: user?.avatarUrl ?? '/assets/img/avatar-fallback.png',
-    healthPercent: user?.healthPercent ?? 100,
-    level: user?.level ?? 1,
-    piggyBalance: user?.piggyBalance ?? 0,
-    diamondBalance: Number(user?.diamondBalance ?? 0),
-    rankingScore: Number(user?.rankingScore ?? 0),
-    country: user?.country ?? null,
-    yearOfBirth: 2000,
-    bonusCode: null,
-    lastActiveAt: null,
-    createdAt: user?.createdAt ? String(user.createdAt) : new Date().toISOString(),
-  };
+  const friends = friendsQuery.data?.friends ?? [];
 
-  const handleSend = () => {
-    if (!recipientId.trim()) {
-      setError('ID não encontrado');
+  const handleSend = async () => {
+    if (!recipientUsername.trim()) {
+      setError('Introduz o username do destinatário');
       return;
     }
     setError(null);
-    console.log('Send to:', recipientId);
+    setSuccess(null);
+
+    try {
+      const result = await deliveryMutation.mutateAsync({
+        position: selectedPosition,
+        recipientUsername: recipientUsername.trim(),
+      });
+
+      if (result.success) {
+        setSuccess(`Enviado para ${recipientUsername}!`);
+        setRecipientUsername('');
+        utils.inventory.getAll.invalidate();
+      } else if (result.sickApplied) {
+        setError('Username inválido — penalização sick aplicada');
+      }
+    } catch (err: any) {
+      setError(err.message ?? 'Falha no envio');
+    }
   };
 
-  const handleFriendClick = (friendId: string) => {
-    setRecipientId(friendId);
+  const handleFriendClick = (friendUsername: string) => {
+    setRecipientUsername(friendUsername);
     setError(null);
+    setSuccess(null);
+  };
+
+  // Map friend status to FriendCard variant
+  const getFriendVariant = (friend: typeof friends[0]): 'available' | 'full' | 'ceasefire' | 'dead' | 'noreturn_poop' | 'noreturn_coin' | 'in_boost_game' => {
+    if (friend.healthPercent === 0) return 'dead';
+    if (friend.status === 'BLOCKED') return 'ceasefire';
+    return 'available';
   };
 
   return (
@@ -115,43 +115,51 @@ export function DeliveryPage() {
               <input
                 id="input-delivery-id"
                 type="text"
-                value={recipientId}
-                onChange={(e) => { setRecipientId(e.target.value); setError(null); }}
-                placeholder="ID"
+                value={recipientUsername}
+                onChange={(e) => { setRecipientUsername(e.target.value); setError(null); }}
+                placeholder="Username"
                 className="flex-1 bg-white/10 rounded-lg px-3 py-2 text-white text-sm placeholder:text-white/30 outline-none border border-white/10 focus:border-[#0A84FF]"
               />
               <button
                 id="btn-delivery-send"
                 onClick={handleSend}
-                className="bg-[#0A84FF] rounded-lg px-4 py-2 text-white text-sm font-bold transition-transform active:scale-95"
+                disabled={deliveryMutation.isPending}
+                className="bg-[#0A84FF] rounded-lg px-4 py-2 text-white text-sm font-bold transition-transform active:scale-95 disabled:opacity-50"
               >
-                ✈️ ENVIAR
+                {deliveryMutation.isPending ? '...' : '✈️ ENVIAR'}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Error space */}
+        {/* Error/Success space */}
         <div className="h-5 shrink-0 px-1">
           {error && <span className="text-red-400 text-xs">{error}</span>}
+          {success && <span className="text-green-400 text-xs">{success}</span>}
         </div>
 
         {/* Friends Grid */}
         <div className="flex-1 overflow-y-auto mt-1">
-          <div className="grid grid-cols-4 gap-1">
-            {mockFriends.map((f) => (
-              <FriendCard
-                key={f.id}
-                id={f.id}
-                username={f.username}
-                avatar={f.avatar}
-                variant={f.variant}
-                occupationPercent={f.occupationPercent}
-                ceasefireTimer="07:59"
-                onClick={() => handleFriendClick(f.id)}
-              />
-            ))}
-          </div>
+          {friendsQuery.isLoading ? (
+            <div className="text-white/40 text-sm text-center py-8 animate-pulse">A carregar amigos...</div>
+          ) : friends.length === 0 ? (
+            <div className="text-white/40 text-sm text-center py-8">Sem amigos adicionados. Adiciona amigos na página de amigos!</div>
+          ) : (
+            <div className="grid grid-cols-4 gap-1">
+              {friends.map((f) => (
+                <FriendCard
+                  key={f.id}
+                  id={f.id}
+                  username={f.username}
+                  avatar={f.avatar}
+                  variant={getFriendVariant(f)}
+                  occupationPercent={0}
+                  ceasefireTimer="07:59"
+                  onClick={() => handleFriendClick(f.username)}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
 

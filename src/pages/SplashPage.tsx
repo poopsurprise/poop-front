@@ -70,7 +70,7 @@ export function SplashPage() {
 
         {/* Instructions */}
         <div className="flex items-start gap-3 w-full px-2">
-          <img src={ASSETS.scooterDelivery} alt="Scooter" className="w-10 h-10 object-contain -scale-x-100" />
+          <img src={ASSETS.deliveryScooter} alt="Scooter" className="w-10 h-10 object-contain -scale-x-100" />
           <div>
             <p className="text-gray-800 font-medium text-[16px] leading-tight">
               Arraste a moeda até ao circulo

@@ -22,24 +22,24 @@ export function TopToolbar({
 
   return (
     <div className="h-[76px] w-full flex items-center justify-between px-3 bg-white shrink-0 shadow-sm z-50">
-      
+
       <div className="flex items-center gap-3">
         {/* 1. Avatar */}
-        <button 
-          id="toolbar-avatar" 
+        <button
+          id="toolbar-avatar"
           onClick={onAvatarClick}
           className="relative w-14 h-14 rounded-full overflow-hidden border-[3px] border-[#0A84FF]/20 hover:border-[#0A84FF]/40 transition-colors shrink-0 bg-[#4DD0E1]"
         >
-          <img 
+          <img
             src={player.avatarUrl || ASSETS.defaultAvatar} 
             alt="Avatar" 
-            className="w-full h-full object-cover" 
+            className="w-full h-full object-cover scale-[1.75]" 
           />
         </button>
 
         {/* 2. Health */}
-        <div 
-          id="toolbar-health" 
+        <div
+          id="toolbar-health"
           className="flex items-end gap-0.5"
         >
           <img src={healthIcon} alt="Health" className="h-9 object-contain" />
@@ -47,8 +47,8 @@ export function TopToolbar({
         </div>
 
         {/* 3. Diamonds */}
-        <div 
-          id="toolbar-diamonds" 
+        <div
+          id="toolbar-diamonds"
           className="flex items-end gap-1 ml-1"
         >
           <img src={ASSETS.diamond} alt="Diamonds" className="h-8 object-contain" />
@@ -58,8 +58,8 @@ export function TopToolbar({
 
       <div className="flex items-center gap-3">
         {/* 4. Games [V2] */}
-        <button 
-          id="toolbar-games" 
+        <button
+          id="toolbar-games"
           onClick={onGamesClick}
           className="relative flex items-center justify-center w-12 h-12 shrink-0 transition-transform active:scale-95"
         >
@@ -70,8 +70,8 @@ export function TopToolbar({
         </button>
 
         {/* 5. Friends */}
-        <button 
-          id="toolbar-friends" 
+        <button
+          id="toolbar-friends"
           onClick={onFriendsClick}
           className="shrink-0 transition-transform active:scale-95"
         >
@@ -79,8 +79,8 @@ export function TopToolbar({
         </button>
 
         {/* 6. Shop */}
-        <button 
-          id="toolbar-shop" 
+        <button
+          id="toolbar-shop"
           onClick={onShopClick}
           className="shrink-0 transition-transform active:scale-95"
         >

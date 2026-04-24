@@ -2,68 +2,72 @@
  * Mapa centralizado de assets.
  * Todos os componentes devem importar os paths daqui.
  * Quando um asset novo for adicionado, actualizar apenas este ficheiro.
+ *
+ * Nomenclatura segue ESPECIFICACAO_TELAS_JOGO.md §2.6 — kebab-case.
  */
 export const ASSETS = {
   // === LOGO ===
-  logo: '/assets/img/LOGO_POOP_SURPRISE.png',
-  logoFull: '/assets/img/Group 14.png',           // Logo horizontal completo "Poop Surprise"
+  logo: '/assets/img/logo-full.png',
+  logoFull: '/assets/img/logo-horizontal.png',        // Logo horizontal completo "Poop Surprise"
 
   // === TOOLBAR / LAYOUT ===
-  healthBody1: '/assets/img/human body-1.png',     // Saúde > 70%
-  healthBody2: '/assets/img/human body-2.png',     // Saúde 30-70%
-  healthBody3: '/assets/img/human body-3.png',     // Saúde < 30%
-  skeleton: '/assets/img/esqueleto 2.png',         // Morto (0%)
-  swords: '/assets/img/image 145.png',             // Espadas cruzadas (jogos)
-  friends: '/assets/img/image 4.png',              // Grupo de amigos
-  shop: '/assets/img/store.png',                // Caixa registadora (loja)
-  
+  healthBody1: '/assets/img/health-figure-green.png',  // Saúde > 70%
+  healthBody2: '/assets/img/health-figure-yellow.png', // Saúde 30-70%
+  healthBody3: '/assets/img/health-figure-red.png',    // Saúde < 30%
+  skeleton: '/assets/img/skeleton.png',                // Morto (0%)
+  swords: '/assets/img/swords-icon.png',               // Espadas cruzadas (jogos)
+  friends: '/assets/img/friends-group.png',             // Grupo de amigos
+  shop: '/assets/img/shop-icon.png',                   // Loja
+
   // === ACTION BAR ===
-  piggyBank: '/assets/img/porquinho 1.png',
-  toiletPaper: '/assets/img/papel sem fundo2 1.png',
-  deliveryScooter: '/assets/img/delivery 1.png',
-  fan: '/assets/img/ventildor 1.png',
-  
+  piggyBank: '/assets/img/piggy-bank.png',
+  toiletPaper: '/assets/img/toilet-paper.png',
+  deliveryScooter: '/assets/img/delivery-scooter.png',
+  fan: '/assets/img/fan.png',
+
   // === BOTTOM BAR ===
-  chest: '/assets/img/image 90.png',               // Baú do tesouro
-  box: '/assets/img/image 47.png',                   // Caixa ocupação/nível
-  smileVector: '/assets/img/avatar2.png',           // Novo icone de fallback (ex-grid)
-  faintSmile: '/assets/img/Slightly Smilling.png', // Smile para o centro do empty slot
-  systemFan: '/assets/img/avatar2.png',           // Novo icone de ventoinha azul para o sistema
-  
+  chest: '/assets/img/chest-icon.png',                 // Baú do tesouro
+  box: '/assets/img/box-locked.png',                   // Caixa ocupação/nível
+  smileVector: '/assets/img/avatar-fallback.png',      // Silhouette guy fallback
+  faintSmile: '/assets/img/smile-watermark.png',       // Center watermark
+  systemFan: '/assets/img/system-fan.png',             // O ventilador preto circular correcto
+
   // === ITEMS / ICONS ===
-  coinGold: '/assets/img/1 2.png',                 // Moeda gold
-  coinHole: '/assets/img/moeda furada.png',        // Moeda furada
-  diamond: '/assets/img/diamante.png',             // Diamante (placeholder círculo azul)
-  bomb: '/assets/img/image 179.png',               // Bomba
-  gift: '/assets/img/image 97.png',                // Presente
-  bell: '/assets/img/image 46.png',                // Sino notificações
-  book: '/assets/img/image 98.png',                // Livro roxo (caderneta)
-  backButton: '/assets/img/image 48.png',          // Botão voltar laranja
-  infoIcon: '/assets/img/image 54.png',            // Ícone info (i)
-  send: '/assets/img/send.png',                    // Ícone enviar
-  add: '/assets/img/Add.png',                      // Ícone adicionar
-  deleteIcon: '/assets/img/Delete.png',            // Ícone remover
-  search: '/assets/img/Search.png',                // Ícone procurar
-  prohibited: '/assets/img/Prohibited.png',        // Ícone proibido
-  box: '/assets/img/image 47.png',                 // Caixa (package)
-  flies: '/assets/img/Group 5.png',                // Moscas (inventário cheio)
-  lockIcon: '/assets/img/image 134.png',           // Cadeado segurança
-  affiliates: '/assets/img/image 135.png',         // Afiliados
-  
+  coinGold: '/assets/img/coin-gold.png',               // Moeda gold
+  coinHole: '/assets/img/coin-hole.png',               // Moeda furada
+  diamond: '/assets/img/diamond.png',                  // Diamante
+  bomb: '/assets/img/bomb-icon.png',                   // Bomba
+  gift: '/assets/img/gift-box.png',                    // Presente
+  bell: '/assets/img/bell-icon.png',                   // Sino notificações
+  book: '/assets/img/book-purple.png',                 // Livro roxo (caderneta)
+  backButton: '/assets/img/back-arrow-orange.png',     // Botão voltar laranja
+  cashRegister: '/assets/img/cash-register.png',       // Caixa registadora (compra)
+  basketGreen: '/assets/img/basket-green.png',         // Cesto verde
+  infoIcon: '/assets/img/info-icon.png',               // Ícone info (i)
+  send: '/assets/img/send.png',                        // Ícone enviar
+  add: '/assets/img/Add.png',                          // Ícone adicionar
+  deleteIcon: '/assets/img/Delete.png',                // Ícone remover
+  search: '/assets/img/Search.png',                    // Ícone procurar
+  prohibited: '/assets/img/Prohibited.png',            // Ícone proibido
+  flies: '/assets/img/flies.png',                      // Moscas (inventário cheio)
+  lockIcon: '/assets/img/lock-icon.png',               // Cadeado segurança
+  affiliates: '/assets/img/affiliates-icon.png',       // Afiliados
+
   // === GAME ===
-  trophy: '/assets/img/image 124.png',             // Troféu mascote
-  madPoop: '/assets/img/image 177.png',            // Poop zangado (bomba)
-  
+  trophy: '/assets/img/trophy-mascot.png',             // Troféu mascote
+  madPoop: '/assets/img/mad-poop.png',                 // Poop zangado (bomba)
+
   // === UTILITIES (Loja) ===
-  medicine: '/assets/img/medical-icon_i-cardiology.png',
-  vip: '/assets/img/vip 1.png',
-  bossCard: '/assets/img/image 112.png',
-  
+  medicine: '/assets/img/medicine-cross.png',
+  vip: '/assets/img/vip-pass.png',
+  bossCard: '/assets/img/boss-card.png',
+
   // === DECORATIVE ===
-  tombstone: '/assets/img/campa 1.png',
-  nivel: '/assets/img/nivel gold 1.png',
-  poopLevel: '/assets/img/poop level large 1.png',
-  
+  tombstone: '/assets/img/tombstone.png',
+  scooterBottom: '/assets/img/scooter-bottom.png',     // Scooter decorativo (login/registo)
+  nivel: '/assets/img/nivel-gold.png',
+  poopLevel: '/assets/img/poop-level-large.png',
+
   // === POOP CATALOG (sample) ===
   poop3: '/assets/img/poop3 6.png',
   poop4: '/assets/img/poop4 1.png',
@@ -95,8 +99,12 @@ export const ASSETS = {
   poop32: '/assets/img/poop32 1.png',
   poop33: '/assets/img/poop33 1.png',
   poop34: '/assets/img/poop34 1.png',
-  
+
+  // === AUTH ===
+  googleG: '/assets/img/google-g.svg',                  // Google G logo (auth)
+  avatarPlaceholder: '/assets/img/avatar-placeholder.png', // Smiley face placeholder (registo)
+
   // === DEFAULT / FALLBACK ===
   defaultAvatar: '/assets/img/avatar.png',
-  slotBackground: '/assets/img/Rectangle 84.png',  // Fundo slot (cinza arredondado)
+  slotBackground: '/assets/img/slot-background.png',   // Fundo slot (cinza arredondado)
 } as const;

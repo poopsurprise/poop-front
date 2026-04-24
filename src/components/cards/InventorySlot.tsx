@@ -7,36 +7,36 @@ export interface SlotItem {
   name: string;
   image: string;
   state: string;       // 'active' | 'sick' | 'dead'
-  badge?: string | null;     
+  badge?: string | null;
   senderAvatar?: string | null;
-  occupationPercent?: number;  
-  occupationCount?: number;    
+  occupationPercent?: number;
+  occupationCount?: number;
 }
 
 export interface InventorySlotProps {
   position: number;
   unlocked: boolean;
   item: SlotItem | null;
-  lockLevel?: number;    
+  lockLevel?: number;
   onClick?: () => void;
   isSelected?: boolean;
 }
 
 function getBadgeIcon(badge: string | null | undefined): string | null {
   switch (badge) {
-    case 'sound':   return '🔊';
+    case 'sound': return '🔊';
     case 'medical': return '➕';
-    case 'spy':     return '🔍';
-    case 'thief':   return '🏴‍☠️';
-    case 'pirate':  return '🏴‍☠️';
-    case 'book':    return '📖';
-    case 'banned':  return '⊘';
-    default:        return null;
+    case 'spy': return '🔍';
+    case 'thief': return '🏴‍☠️';
+    case 'pirate': return '🏴‍☠️';
+    case 'book': return '📖';
+    case 'banned': return '⊘';
+    default: return null;
   }
 }
 
 export function InventorySlot({ position, unlocked, item, lockLevel, onClick, isSelected }: InventorySlotProps) {
-  
+
   // ── Variação C — Bloqueado ──
   if (!unlocked) {
     return (
@@ -63,7 +63,12 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick, is
         </div>
         {/* Main Body */}
         <div className="absolute inset-0 bg-white rounded-[18px] border border-white/40 shadow-sm flex items-center justify-center overflow-hidden">
-           <img src={ASSETS.faintSmile} alt="Empty Smile" className="w-[45%] h-[45%] opacity-15 object-contain mix-blend-multiply" />
+          {/* Smile d'água no centro */}
+          <img 
+            src={ASSETS.faintSmile} 
+            alt="Smile" 
+            className="w-[35%] opacity-15 mix-blend-multiply pointer-events-none" 
+          />
         </div>
       </button>
     );
@@ -78,9 +83,8 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick, is
     <button
       id={`inventory-slot-${position - 1}`}
       onClick={onClick}
-      className={`relative w-full aspect-square transition-transform active:scale-95 ${
-        isSick ? 'opacity-80' : isDead ? 'opacity-50 grayscale' : ''
-      }`}
+      className={`relative w-full aspect-square transition-transform active:scale-95 ${isSick ? 'opacity-80' : isDead ? 'opacity-50 grayscale' : ''
+        }`}
     >
       {/* Top-left Indicator: Selection Checkmark OR Sender Avatar */}
       {isSelected ? (
@@ -90,22 +94,22 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick, is
           </svg>
         </div>
       ) : item.senderAvatar ? (
-        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full overflow-hidden border-2 border-white shadow-md bg-white z-30">
-          <img src={item.senderAvatar} alt="Sender" className="w-full h-full object-cover" />
+        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full overflow-hidden border-2 border-white shadow-md bg-white z-30 flex items-center justify-center">
+          <img src={item.senderAvatar} alt="Sender" className="w-full h-full object-cover scale-[1.75]" />
         </div>
-      ) : item.senderType === 'system' ? (
-        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full bg-white shadow-md z-30 flex items-center justify-center border-2 border-white/80">
-          <img src={ASSETS.systemFan} alt="System" className="w-4 h-4 object-contain" />
+      ) : item.senderType === 'system' || item.senderType === 'fan' ? (
+        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full bg-white shadow-md z-30 flex items-center justify-center border-2 border-white/80 overflow-hidden">
+          <img src={ASSETS.systemFan} alt="System" className="w-full h-full object-contain scale-[1.1]" />
         </div>
       ) : (
-        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full bg-white shadow-md z-30 flex items-center justify-center border-2 border-white/80">
-          <img src={ASSETS.smileVector} alt="Default" className="w-4 h-4 object-contain" />
+        <div className="absolute -top-1 -left-1 w-7 h-7 rounded-full bg-white shadow-md z-30 flex items-center justify-center border-2 border-white/80 overflow-hidden">
+          <img src={ASSETS.smileVector} alt="Default" className="w-full h-full object-cover scale-[1.5]" />
         </div>
       )}
 
       {/* Main Container */}
       <div className="absolute inset-0 bg-white rounded-[18px] border border-white/40 shadow-sm flex flex-col justify-between overflow-hidden">
-        
+
         {/* Badge icon — top-right */}
         {badgeIcon && (
           <div className="absolute top-1 right-1 text-[12px] z-20">
@@ -115,10 +119,10 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick, is
 
         {/* Main poop image — centered */}
         <div className="flex-1 flex items-center justify-center p-2 pt-3">
-          <img 
-            src={item.image} 
-            alt={item.name} 
-            className="w-[85%] h-[85%] object-contain drop-shadow-md" 
+          <img
+            src={item.image}
+            alt={item.name}
+            className="w-[85%] h-[85%] object-contain drop-shadow-md"
           />
         </div>
       </div>

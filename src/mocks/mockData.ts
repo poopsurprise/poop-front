@@ -46,27 +46,27 @@ export const mockPlayerDead: Player = {
 
 export const mockFriends: Friend[] = [
   {
-    id: 'fr_001', friendId: 'usr_002', username: 'Mery Domingos', avatar: '/assets/img/avatar.png',
+    id: 'fr_001', friendId: 'usr_002', username: 'Mery Domingos', avatar: '/assets/img/smile-watermark.png',
     level: 12, occupationPercent: 20, notificationsEnabled: true, isMutual: true,
     inBoostGame: false, isOnline: true, streakDays: 5, cardPosition: 1,
   },
   {
-    id: 'fr_002', friendId: 'usr_003', username: 'João Silva', avatar: '/assets/img/avatar.png',
+    id: 'fr_002', friendId: 'usr_003', username: 'João Silva', avatar: '/assets/img/smile-watermark.png',
     level: 8, occupationPercent: 65, notificationsEnabled: false, isMutual: true,
     inBoostGame: true, isOnline: true, streakDays: 0, cardPosition: 2,
   },
   {
-    id: 'fr_003', friendId: 'usr_004', username: 'Ana Costa', avatar: '/assets/img/avatar.png',
+    id: 'fr_003', friendId: 'usr_004', username: 'Ana Costa', avatar: '/assets/img/smile-watermark.png',
     level: 15, occupationPercent: 10, notificationsEnabled: true, isMutual: false,
     inBoostGame: false, isOnline: false, streakDays: 12, cardPosition: 3,
   },
   {
-    id: 'fr_004', friendId: 'usr_005', username: 'Carlos Mendes', avatar: '/assets/img/avatar.png',
+    id: 'fr_004', friendId: 'usr_005', username: 'Carlos Mendes', avatar: '/assets/img/smile-watermark.png',
     level: 5, occupationPercent: 100, notificationsEnabled: true, isMutual: true,
     inBoostGame: false, isOnline: false, streakDays: 30, cardPosition: 4,
   },
   {
-    id: 'fr_005', friendId: 'usr_006', username: 'Sofia Lima', avatar: '/assets/img/avatar.png',
+    id: 'fr_005', friendId: 'usr_006', username: 'Sofia Lima', avatar: '/assets/img/smile-watermark.png',
     level: 20, occupationPercent: 45, notificationsEnabled: true, isMutual: true,
     inBoostGame: false, isOnline: true, streakDays: 0, cardPosition: 5,
   },
@@ -117,7 +117,7 @@ const SLOT_POOPS = [
   '/assets/img/poop7 1.png',
   '/assets/img/poop8 1.png',
   '/assets/img/poop9 1.png',
-  '/assets/img/1 2.png', // Coin
+  '/assets/img/coin-gold.png', // Coin
 ];
 
 export const mockInventorySlots: InventorySlot[] = Array.from({ length: 20 }, (_, i) => ({
@@ -126,22 +126,23 @@ export const mockInventorySlots: InventorySlot[] = Array.from({ length: 20 }, (_
   item:
     i < 4
       ? {
-          id: `item_${i + 1}`,
-          type: i === 3 ? ('coin' as const) : ('poop_soft' as const),
-          name: i === 3 ? 'Moeda' : `Poop ${i + 1}`,
-          image: SLOT_POOPS[i],
-          state: 'active' as const,
-          senderType: i === 1 ? ('system' as const) : ('friend' as const),
-          senderId: `usr_00${i + 2}`,
-          senderAvatar: i === 1 ? undefined : '/assets/img/avatar.png', // slot 2 has no avatar -> shows Fan
-          timerSeconds: i === 3 ? 7200 : null,
-          coinValue: i === 3 ? 1000 : null,
-          receivedAt: new Date().toISOString(),
-          badge: i === 0 ? 'medical' : i === 1 ? 'sound' : i === 2 ? 'book' : 'thief',
-          occupationPercent: i === 0 ? 80 : i === 1 ? 95 : i === 2 ? 10 : 50,
-          occupationCount: 35,
-        }
+        id: `item_${i + 1}`,
+        type: i === 3 ? ('coin' as const) : ('poop_soft' as const),
+        name: i === 3 ? 'Moeda' : `Poop ${i + 1}`,
+        image: SLOT_POOPS[i],
+        state: 'active' as const,
+        senderType: 'fan' as const,
+        senderId: `usr_00${i + 2}`,
+        senderAvatar: i === 0 ? '/assets/img/avatar.png' : undefined,
+        timerSeconds: i === 3 ? 7200 : null,
+        coinValue: i === 3 ? 1000 : null,
+        receivedAt: new Date().toISOString(),
+        badge: i === 0 ? 'medical' : i === 1 ? 'sound' : i === 2 ? 'book' : 'thief',
+        occupationPercent: i === 0 ? 80 : i === 1 ? 95 : i === 2 ? 10 : 50,
+        occupationCount: i === 0 ? 1 : i === 1 ? 2 : i === 2 ? 1 : 1,
+      }
       : null,
+    isSelected: false,
 }));
 
 // ---------------------------------------------------------------------------
@@ -196,11 +197,11 @@ export const mockGameActive1x1: GameActiveState = {
 // ---------------------------------------------------------------------------
 
 export const mockUtilities = [
-  { id: 'util_paper', name: 'Papel Higiénico', image: '/assets/img/papel sem fundo2 1.png', priceCoins: 5000, priceDiamonds: 0.001 },
-  { id: 'util_medicine', name: 'Medicamento', image: '/assets/img/medical-icon_i-cardiology.png', priceCoins: 5000, priceDiamonds: 0.001 },
-  { id: 'util_fan', name: 'Ventilador', image: '/assets/img/ventildor 1.png', priceCoins: 5000000, priceDiamonds: 0.10 },
-  { id: 'util_vip', name: 'VIP Pass', image: '/assets/img/vip 1.png', priceCoins: 500000000, priceDiamonds: 2.99 },
-  { id: 'util_boss', name: 'Boss Card', image: '/assets/img/image 112.png', priceCoins: 350000000, priceDiamonds: 1.99 },
+  { id: 'util_paper', name: 'Papel Higiénico', image: '/assets/img/toilet-paper.png', priceCoins: 5000, priceDiamonds: 0.001 },
+  { id: 'util_medicine', name: 'Medicamento', image: '/assets/img/medicine-cross.png', priceCoins: 5000, priceDiamonds: 0.001 },
+  { id: 'util_fan', name: 'Ventilador', image: '/assets/img/fan.png', priceCoins: 5000000, priceDiamonds: 0.10 },
+  { id: 'util_vip', name: 'VIP Pass', image: '/assets/img/vip-pass.png', priceCoins: 500000000, priceDiamonds: 2.99 },
+  { id: 'util_boss', name: 'Boss Card', image: '/assets/img/boss-card.png', priceCoins: 350000000, priceDiamonds: 1.99 },
 ];
 
 // ---------------------------------------------------------------------------

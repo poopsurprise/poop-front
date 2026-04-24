@@ -1,21 +1,54 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthInput } from '../components/ui/AuthInput';
-import { PrimaryButton } from '../components/ui/PrimaryButton';
 import { ASSETS } from '../constants/assets';
+import { useAuth } from '../hooks/useAuth';
 
+/**
+ * TELA 01 — LOGIN
+ * Mockup: Login.png
+ * Wired to Supabase signInWithPassword + Google OAuth
+ */
 export function LoginPage() {
+  const navigate = useNavigate();
+  const { signIn, signInWithGoogle, loading, error, clearError } = useAuth();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [localError, setLocalError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
+    // Local validation
     if (!email.includes('@')) {
-      setErrorMsg('Email inválido');
+      setLocalError('Email inválido');
       return;
     }
-    setErrorMsg(null);
-    alert('Login submetido! (Mock)');
+    if (!password) {
+      setLocalError('Introduz a password');
+      return;
+    }
+
+    setLocalError(null);
+    clearError();
+    setSubmitting(true);
+
+    const result = await signIn(email, password);
+    setSubmitting(false);
+
+    if (result.success) {
+      navigate('/inventory', { replace: true });
+    }
+    // Error is set in the hook state automatically
   };
+
+  const handleGoogleLogin = async () => {
+    clearError();
+    await signInWithGoogle();
+    // Browser will redirect on success
+  };
+
+  const displayError = localError || error;
 
   return (
     <div className="flex flex-col h-dvh max-w-[420px] mx-auto bg-white relative overflow-hidden">
@@ -27,7 +60,7 @@ export function LoginPage() {
            <img 
              src={ASSETS.logoFull} 
              alt="Poop Surprise" 
-             className="w-[240px] h-auto object-contain drop-shadow-md"
+             className="w-[260px] h-auto object-contain drop-shadow-md"
            />
         </div>
 
@@ -37,8 +70,8 @@ export function LoginPage() {
           type="email"
           placeholder="Email"
           value={email}
-          onChange={setEmail}
-          error={errorMsg}
+          onChange={(v) => { setEmail(v); setLocalError(null); clearError(); }}
+          error={displayError && displayError.toLowerCase().includes('email') ? displayError : null}
         />
 
         <AuthInput
@@ -46,29 +79,39 @@ export function LoginPage() {
           type="password"
           placeholder="Password"
           value={password}
-          onChange={setPassword}
+          onChange={(v) => { setPassword(v); setLocalError(null); clearError(); }}
+          error={displayError && !displayError.toLowerCase().includes('email') ? displayError : null}
         />
 
-        {/* LINKS */}
+        {/* LINKS — Remember + Forgot password */}
         <div className="flex justify-between items-center w-full px-1 mt-1 mb-8">
           <label className="flex items-center gap-2 cursor-pointer">
-             <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-[#0A84FF] focus:ring-[#0A84FF]" />
+             <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-[#4A6CF7] focus:ring-[#4A6CF7]" />
              <span className="text-gray-600 text-[14px]">Remember</span>
           </label>
-          <button className="text-gray-500 text-[14px] hover:text-[#0A84FF] transition-colors">
+          <button className="text-gray-500 text-[14px] hover:text-[#4A6CF7] transition-colors">
             Forgot password?
           </button>
         </div>
 
         {/* CTA */}
-        <PrimaryButton
+        <button
           id="btn-login-submit"
-          text="Login"
           onClick={handleLogin}
-        />
+          disabled={submitting || loading}
+          className={`w-full h-[56px] rounded-2xl bg-[#4A6CF7] text-white flex items-center justify-center font-bold text-[16px] transition-all shadow-[0_4px_15px_rgba(74,108,247,0.4)] hover:shadow-[0_6px_20px_rgba(74,108,247,0.5)] active:scale-[0.98] ${
+            (submitting || loading) ? 'opacity-60 cursor-not-allowed' : ''
+          }`}
+        >
+          {submitting ? (
+            <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+          ) : (
+            'Login'
+          )}
+        </button>
 
         {/* OR DIVIDER */}
-        <div className="flex items-center gap-4 my-8">
+        <div className="flex items-center gap-4 my-6">
           <div className="flex-1 h-px bg-gray-200" />
           <span className="text-gray-400 text-sm font-medium">Or</span>
           <div className="flex-1 h-px bg-gray-200" />
@@ -78,30 +121,42 @@ export function LoginPage() {
         <div className="flex justify-center mb-auto">
           <button 
             id="btn-login-google"
+            onClick={handleGoogleLogin}
             className="w-16 h-16 bg-white rounded-full shadow-[0_4px_15px_rgba(0,0,0,0.1)] flex items-center justify-center hover:scale-105 transition-transform border border-gray-100"
           >
-            {/* Google G – using text fallback since google-g.png not in assets */}
-            <span className="text-2xl font-bold" style={{ color: '#4285F4' }}>G</span>
+            <img 
+              src={ASSETS.googleG} 
+              alt="Google" 
+              className="w-8 h-8 object-contain"
+            />
           </button>
         </div>
 
-        {/* FOOTER LINK */}
-        <p className="text-center text-gray-600 text-[14px] mt-6">
-          Don't have an account? <button id="link-signup" className="text-[#0A84FF] font-bold hover:underline">Sign Up</button>
-        </p>
-
       </div>
-      
+
       {/* Decorative scooter */}
       <img 
-        src={ASSETS.deliveryScooter} 
+        src={ASSETS.scooterBottom} 
         alt="Scooter" 
-        className="absolute bottom-8 left-4 w-24 object-contain opacity-30 pointer-events-none"
+        className="absolute bottom-10 left-2 w-24 object-contain opacity-90 pointer-events-none z-10"
       />
 
-      {/* BARRA DE COR NO FUNDO */}
-      <div className="h-6 w-full bg-[#0A84FF] shrink-0" />
+      {/* FOOTER */}
+      <div className="relative z-10 pb-2 text-center">
+        <p className="text-gray-600 text-[14px] mb-2">
+          Don't have an account?{' '}
+          <a 
+            id="link-signup" 
+            href="/register"
+            className="text-[#4A6CF7] font-bold hover:underline"
+          >
+            Sign Up
+          </a>
+        </p>
+      </div>
 
+      {/* BARRA DE COR NO FUNDO */}
+      <div className="h-6 w-full bg-[#4CAF50] shrink-0" />
     </div>
   );
 }

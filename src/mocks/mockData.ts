@@ -29,6 +29,8 @@ export const mockPlayer: Player = {
   rankingScore: 1250,
   country: 'PT',
   yearOfBirth: 1995,
+  language: 'pt',
+  adminLocked: false,
   bonusCode: null,
   lastActiveAt: new Date().toISOString(),
   createdAt: '2026-01-15T10:00:00Z',

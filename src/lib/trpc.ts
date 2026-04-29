@@ -7,12 +7,13 @@
 // IMPORTANTE: O AppRouter type é importado directamente do backend package.
 // Isto funciona porque o monorepo partilha tipos via workspace.
 
-import { createTRPCReact, httpBatchLink } from '@trpc/react-query';
+import { createTRPCReact } from '@trpc/react-query';
+import { httpBatchLink } from '@trpc/client';
 import superjson from 'superjson';
 import { supabase } from './supabase';
 
 // Type-only import do AppRouter — não arrasta runtime do backend
-import type { AppRouter } from '@backend/trpc/router';
+import type { AppRouter } from '@poop/backend/src/trpc/router';
 
 // tRPC React hooks (useQuery, useMutation, etc.)
 export const trpc = createTRPCReact<AppRouter>();

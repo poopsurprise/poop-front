@@ -33,6 +33,7 @@ export function CompleteProfilePage() {
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
   const completeProfile = trpc.auth.completeProfile.useMutation();
+  const utils = trpc.useUtils();
 
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [name, setName] = useState('');
@@ -96,6 +97,9 @@ export function CompleteProfilePage() {
         yearOfBirth: parseInt(birthYear),
         bonusCode: bonusCode || undefined,
       });
+
+      // Force refresh of whoami so ProfileGuard knows we have a profile now
+      await utils.auth.whoami.invalidate();
 
       // Navigate to inventory (main game screen)
       navigate('/inventory', { replace: true });

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { TopToolbar } from '../components/layout/TopToolbar';
 import { BannerSlot } from '../components/layout/BannerSlot';
 import { FriendCard } from '../components/cards/FriendCard';
@@ -14,13 +14,15 @@ import { ASSETS } from '../constants/assets';
 
 export function DeliveryPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { playerData } = usePlayerData();
   const friendsQuery = trpc.social.friends.useQuery(undefined, { staleTime: 30_000 });
   const deliveryMutation = trpc.sending.delivery.useMutation();
   const utils = trpc.useUtils();
 
   const [recipientUsername, setRecipientUsername] = useState('');
-  const [selectedPosition, setSelectedPosition] = useState(1); // TODO: receive from inventory selection
+  const [selectedPosition, setSelectedPosition] = useState(location.state?.selectedPosition ?? 1);
+  const [selectedImage, setSelectedImage] = useState(location.state?.selectedItemImage ?? ASSETS.poop3);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -104,7 +106,7 @@ export function DeliveryPage() {
         {/* Item + Send Card */}
         <div className="bg-white/10 rounded-xl p-3 flex items-center gap-3 mb-1 shrink-0">
           <div className="w-14 h-14 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
-            <img src={ASSETS.poop3} alt="Poop" className="w-10 h-10 object-contain" />
+            <img src={selectedImage} alt="Item to Send" className="w-10 h-10 object-contain" />
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">

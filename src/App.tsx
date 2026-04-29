@@ -152,13 +152,11 @@ export function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/splash" replace />} />
 
-        {/* Splash screen */}
+        {/* Splash screen - Always visible as the first entry point */}
         <Route
           path="/splash"
           element={
-            <GuestGuard>
-              <SplashPage />
-            </GuestGuard>
+            <SplashPage />
           }
         />
 

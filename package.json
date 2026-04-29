@@ -24,13 +24,24 @@
   },
   "homepage": "https://github.com/poopsurprise/poop-front#readme",
   "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/utilities": "^3.2.2",
+    "@poop/backend": "workspace:^",
     "@supabase/supabase-js": "^2.104.0",
+    "@tanstack/react-query": "^5.100.1",
+    "@trpc/client": "^11.16.0",
+    "@trpc/react-query": "^11.16.0",
+    "@trpc/server": "^11.16.0",
     "clsx": "^2.1.1",
-    "lucide-react": "^1.8.0",
+    "date-fns": "^4.1.0",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^1.11.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-router-dom": "^7.14.2",
-    "tailwind-merge": "^3.5.0"
+    "superjson": "^2.2.6",
+    "tailwind-merge": "^3.5.0",
+    "zustand": "^5.0.12"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.2.4",

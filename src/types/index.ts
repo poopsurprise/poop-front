@@ -15,6 +15,8 @@ export interface Player {
   rankingScore: number;
   country: string | null;
   yearOfBirth: number;
+  language: string | null;
+  adminLocked: boolean;
   bonusCode: string | null;
   lastActiveAt: string | null;
   createdAt: string;

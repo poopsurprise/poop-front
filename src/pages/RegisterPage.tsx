@@ -62,7 +62,10 @@ export function RegisterPage() {
 
   const handleGoogleRegister = async () => {
     setAuthError(null);
-    await signInWithGoogle();
+    const result = await signInWithGoogle();
+    if (!result.success && result.error) {
+      setAuthError(result.error);
+    }
   };
 
   // Show success message after registration

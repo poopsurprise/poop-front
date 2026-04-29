@@ -48,8 +48,10 @@ export function LoginPage() {
 
   const handleGoogleLogin = async () => {
     setAuthError(null);
-    await signInWithGoogle();
-    // Browser will redirect on success
+    const result = await signInWithGoogle();
+    if (!result.success && result.error) {
+      setAuthError(result.error);
+    }
   };
 
   const displayError = localError || authError;

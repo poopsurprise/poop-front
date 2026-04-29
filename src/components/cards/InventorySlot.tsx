@@ -21,6 +21,11 @@ export interface InventorySlotProps {
   lockLevel?: number;
   onClick?: () => void;
   isSelected?: boolean;
+  dragAttributes?: any;
+  dragListeners?: any;
+  setDragRef?: (node: HTMLElement | null) => void;
+  isDragging?: boolean;
+  isVisuallyDragging?: boolean;
 }
 
 function getBadgeIcon(badge: string | null | undefined): string | null {
@@ -36,7 +41,7 @@ function getBadgeIcon(badge: string | null | undefined): string | null {
   }
 }
 
-export function InventorySlot({ position, unlocked, item, lockLevel, onClick, isSelected }: InventorySlotProps) {
+export function InventorySlot({ position, unlocked, item, lockLevel, onClick, isSelected, dragAttributes, dragListeners, setDragRef, isDragging, isVisuallyDragging }: InventorySlotProps) {
 
   // ── Variação C — Bloqueado ──
   if (!unlocked) {
@@ -119,11 +124,16 @@ export function InventorySlot({ position, unlocked, item, lockLevel, onClick, is
         )}
 
         {/* Main poop image — centered */}
-        <div className="flex-1 flex items-center justify-center p-2 pt-3">
+        <div 
+          ref={setDragRef}
+          {...(dragAttributes || {})}
+          {...(dragListeners || {})}
+          className={`flex-1 flex items-center justify-center p-2 pt-3 touch-none ${(isDragging || isVisuallyDragging) ? 'opacity-0' : ''}`}
+        >
           <img
             src={item.image}
             alt={item.name}
-            className="w-[85%] h-[85%] object-contain drop-shadow-md"
+            className="w-[85%] h-[85%] object-contain drop-shadow-md pointer-events-none"
           />
         </div>
       </div>

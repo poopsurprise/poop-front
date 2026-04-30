@@ -308,3 +308,77 @@ export interface DiamondPack {
   currency: string; // '€'
   promoText: string | null; // 'Special Offer!'
 }
+
+// =============================================================================
+// Item Domain Types
+// =============================================================================
+
+export type AdminItemKind = 'SINGLE' | 'GROUP';
+
+export type AdminItemCategory =
+  | 'SOFT_POOP'
+  | 'ATTACK_POOP'
+  | 'COLLECTIBLE_POOP'
+  | 'COLLECTION_BOOK'
+  | 'GIFT'
+  | 'COIN'
+  | 'TOILET_PAPER'
+  | 'BOOST';
+
+export type AdminItemSubcategory =
+  | 'SOFT'
+  | 'SOUND_ATTACK'
+  | 'INSPECTOR_ATTACK'
+  | 'THIEF_ATTACK'
+  | 'COLLECTION'
+  | 'COLLECTION_BOOK'
+  | 'GIFT'
+  | 'COIN'
+  | 'TOILET_PAPER'
+  | 'BOOST'
+  | 'CUSTOM';
+
+export type ItemVisibilityChannel = 'SHOP' | 'POOP_SHOWCASE';
+
+export type ItemQuantityMode = 'LIMITED' | 'UNLIMITED';
+
+export type CollectionDistributionMode =
+  | 'LEVEL_UP_EXTRA_INVENTORY'
+  | 'RANDOM_FREE_INVENTORY';
+
+export type CollectionDistributionPriority = 'OLDER_USERS' | 'MOST_TIME_IN_APP';
+
+export type CollectionRewardType = 'DIAMONDS' | 'CODE';
+
+export interface ItemCategoryMeta {
+  id: AdminItemCategory;
+  label: string;
+  description: string;
+  defaultSubcategory?: AdminItemSubcategory;
+  supportsGrouping: boolean;
+  supportsCollectionBinding: boolean;
+  supportsTimerMinutes: boolean;
+  supportsLifeInSends: boolean;
+  supportsCountryTargeting: boolean;
+}
+
+export interface ItemSubcategoryMeta {
+  id: AdminItemSubcategory;
+  label: string;
+  description: string;
+  iconRequired: boolean;
+  timerSupported: boolean;
+  lifeInSendsSupported: boolean;
+}
+
+export interface OracleReferenceRates {
+  euroToDiamonds: number;
+  diamondToCoins: number;
+  euroToCoins: number;
+}
+
+export interface OracleDisplayPrice {
+  eur: number;
+  diamonds: number;
+  coins: number;
+}

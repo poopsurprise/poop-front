@@ -20,6 +20,7 @@ export interface Player {
   bonusCode: string | null;
   lastActiveAt: string | null;
   createdAt: string;
+  activePasses: string[];
 }
 
 /** Perfil público visível para outros jogadores */
@@ -323,7 +324,9 @@ export type AdminItemCategory =
   | 'GIFT'
   | 'COIN'
   | 'TOILET_PAPER'
-  | 'BOOST';
+  | 'BOOST'
+  | 'VIP'
+  | 'BOSS';
 
 export type AdminItemSubcategory =
   | 'SOFT'

@@ -47,7 +47,7 @@ export function ChestSelectionPage() {
           piggyBalance={playerData.piggyBalance}
           paperStock={0}
           deliveryAvailable="0/1"
-          fanAvailable="0/2"
+          fanAvailable="—"
         />
       </div>
 
@@ -88,7 +88,9 @@ export function ChestSelectionPage() {
       {/* Bottom Bar */}
       <BottomBar 
         level={playerData.level} 
-        progress={`${user?.poopsSentTotal ?? 0}/30`}
+        progress={user?.progression 
+          ? `${user.poopsSentTotal ?? 0}/${user.progression.poopsNeededForNext}`
+          : `${user?.poopsSentTotal ?? 0}/—`}
         onChestClick={() => navigate('/inventory')}
       />
     </div>

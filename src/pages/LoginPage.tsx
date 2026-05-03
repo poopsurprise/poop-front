@@ -21,6 +21,21 @@ export function LoginPage() {
   const [authError, setAuthError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
+  // Check for OAuth or Email link errors in the URL
+  useState(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash;
+      const query = window.location.search;
+      const params = new URLSearchParams(hash ? hash.replace('#', '?') : query);
+      const errDesc = params.get('error_description');
+      if (errDesc) {
+        setAuthError(decodeURIComponent(errDesc.replace(/\+/g, ' ')));
+        // Optional: clear the hash so it doesn't persist on reload
+        window.history.replaceState(null, '', window.location.pathname);
+      }
+    }
+  });
+
   const handleLogin = async () => {
     // Local validation
     if (!email.includes('@')) {

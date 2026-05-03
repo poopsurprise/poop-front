@@ -51,7 +51,7 @@ export function MedicinePage() {
   return (
     <div className="flex flex-col h-dvh max-w-[420px] mx-auto bg-[#383838] border-x border-white/5">
       <TopToolbar player={playerData} activeGames={0} onAvatarClick={() => navigate('/profile')} />
-      <ActionBar piggyBalance={piggyBalance} paperStock={0} deliveryAvailable="0/1" fanAvailable="0/2" />
+      <ActionBar piggyBalance={piggyBalance} paperStock={0} deliveryAvailable="0/1" fanAvailable="—" />
       <div className="flex-1 flex flex-col items-center justify-center px-6 gap-4">
         <div className="w-full flex items-center justify-between mb-2">
           <div className="flex items-center gap-2"><img src={ASSETS.piggyBank} alt="" className="h-7" /><span className="text-white text-sm font-medium">{piggyBalance.toLocaleString()}</span></div>

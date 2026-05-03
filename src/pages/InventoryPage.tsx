@@ -28,6 +28,7 @@ export function InventoryPage() {
   // ── Data queries ──
   const meQuery = trpc.auth.me.useQuery(undefined, { staleTime: 60_000 });
   const inventoryQuery = trpc.inventory.getAll.useQuery(undefined, { staleTime: 30_000 });
+  const fanStatusQuery = trpc.sending.fanStatus.useQuery(undefined, { staleTime: 15_000 });
 
   const initAccount = trpc.auth.initializeAccount.useMutation({
     onSuccess: () => utils.inventory.getAll.invalidate(),
@@ -216,7 +217,7 @@ export function InventoryPage() {
           piggyBalance={playerData.piggyBalance}
           paperStock={0}
           deliveryAvailable={`0/${stats?.slotsUnlocked ? Math.min(stats.slotsUnlocked, 1) : 1}`}
-          fanAvailable="0/2"
+          fanAvailable={fanStatusQuery.data ? `${fanStatusQuery.data.fans.filter(f => f.available).length}/${fanStatusQuery.data.totalFans}` : '—'}
         />
         
         {/* Banner Slot */}
@@ -250,7 +251,9 @@ export function InventoryPage() {
         
         <BottomBar 
           level={playerData.level} 
-          progress={`${user?.poopsSentTotal ?? 0}/30`}
+          progress={user?.progression 
+            ? `${user.poopsSentTotal ?? 0}/${user.progression.poopsNeededForNext}`
+            : `${user?.poopsSentTotal ?? 0}/—`}
           onChestClick={() => navigate('/chest')}
         />
         

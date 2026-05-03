@@ -109,8 +109,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
   // Auth methods
   // ---------------------------------------------------------------------------
 
+  // Define the base redirect URL based on environment variables or window.location
+  // Using an explicit environment variable allows overriding the local localhost:5173
+  // with a pre-approved redirect URI (like https://poopsurprise.lol) if needed.
+  const getRedirectUrl = () => {
+    return import.meta.env.VITE_SUPABASE_REDIRECT_URL || window.location.origin;
+  };
+
   const signUp = useCallback(async (email: string, password: string): Promise<AuthResult> => {
-    const { error } = await supabase.auth.signUp({ email, password });
+    const { error } = await supabase.auth.signUp({ 
+      email, 
+      password,
+      options: {
+        emailRedirectTo: getRedirectUrl()
+      }
+    });
     return { success: !error, error: formatError(error) };
   }, []);
 
@@ -123,7 +136,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: window.location.origin + '/splash',
+        redirectTo: getRedirectUrl(),
       },
     });
     return { success: !error, error: formatError(error) };
